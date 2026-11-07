@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Kufi_Arabic } from "next/font/google";
+import localFont from "next/font/local";
 import { ContactModalProvider } from "@/components/contact/ContactModal";
 import "@/app/globals.css";
 
-const notoKufiArabic = Noto_Kufi_Arabic({
+const notoKufiArabic = localFont({
   variable: "--font-kufi",
-  subsets: ["arabic", "latin"],
-  weight: ["400", "500", "600", "700"],
+  src: "../fonts/NotoKufiArabic.woff2",
+  weight: "400 700",
   display: "swap",
 });
 
