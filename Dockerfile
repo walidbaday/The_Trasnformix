@@ -17,7 +17,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# next.config.ts sets output: 'standalone'
+# next.config.mjs sets output: 'standalone'
 RUN npm run build
 
 # ──────────────────────────────────────────────────────────────────────────────
