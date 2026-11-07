@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { PillButton } from "@/english/components/ui/PillButton";
 import { Reveal } from "@/english/components/ui/Reveal";
+import { PRODUCT_WEBSITES } from "@/english/lib/serviceNavigation";
 import styles from "@/english/components/sections/products/ProductShowcase.module.css";
 
 type Product = {
@@ -13,7 +14,8 @@ type Product = {
   /** The "لمن هذه المنصة" row under the copy. */
   audience?: string;
   cta: string;
-  /** Without one the pill opens the contact form. */
+  /** Without one the pill opens the contact form; another site opens in a
+      new tab. */
   href?: string;
   /** Wider pills carry their label on one line. */
   ctaWidth: number;
@@ -37,6 +39,7 @@ const PRODUCTS: Product[] = [
     text: "Cooperatives serve their members, manage assets, and report to boards and stakeholders.",
     audience: "For Saudi cooperatives and their boards",
     cta: "Visit the platform",
+    href: PRODUCT_WEBSITES.cooperatives,
     ctaWidth: 245,
     media: "tablet",
     height: 777,
@@ -138,7 +141,7 @@ export function ProductShowcase() {
                 delay={product.audience ? 340 : 280}
                 style={{ "--pill-w": rem(product.ctaWidth) } as CSSProperties}
               >
-                <PillButton href={product.href} className={styles.cta}>
+                <PillButton href={product.href} external={product.href?.startsWith("https://")} className={styles.cta}>
                   {product.cta}
                 </PillButton>
               </Reveal>

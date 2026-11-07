@@ -8,6 +8,9 @@ type PillButtonProps = {
   children: ReactNode;
   /** Without one the pill opens the contact form. */
   href?: string;
+  /** What a pill without `href` opens: the project form, or the six
+      partnership paths and their forms. */
+  opens?: "contact" | "partnerships";
   /** Opens `href` in a new tab, for links that leave the site. */
   external?: boolean;
   className?: string;
@@ -30,6 +33,7 @@ type PillButtonProps = {
 export function PillButton({
   children,
   href,
+  opens = "contact",
   external,
   className,
   variant = "primary",
@@ -37,7 +41,7 @@ export function PillButton({
   type,
   disabled,
 }: PillButtonProps) {
-  const { open } = useContactModal();
+  const { open, openPartnerships } = useContactModal();
   const outlined = variant === "outline" || variant === "ghost" || variant === "soft";
   const classes = [styles.root, styles[variant], size === "compact" && styles.compact, className]
     .filter(Boolean)
@@ -75,7 +79,12 @@ export function PillButton({
 
   if (!href) {
     return (
-      <button type="button" className={classes} aria-haspopup="dialog" onClick={open}>
+      <button
+        type="button"
+        className={classes}
+        aria-haspopup="dialog"
+        onClick={opens === "partnerships" ? openPartnerships : open}
+      >
         {content}
       </button>
     );

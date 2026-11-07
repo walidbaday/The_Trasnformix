@@ -1,0 +1,448 @@
+/* The careers forms share the /contact form's card, fields and consent row
+   (components/contact/ContactForm.module.css), set on a two-column grid. */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2.4rem;
+  padding: 3.2rem;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 1.6rem;
+  background: var(--bg-main);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+/* The fields a chosen path adds, set apart by a rule and a heading. */
+.extra {
+  padding-top: 2.4rem;
+  border-top: 0.1rem solid #e5e7eb;
+  animation: extraIn var(--dur) var(--ease-out);
+}
+
+@keyframes extraIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.8rem);
+  }
+}
+
+.extraTitle {
+  grid-column: 1 / -1;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #142441;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.label {
+  padding: 0;
+  font-size: 1.4rem;
+  line-height: 1.9;
+  color: var(--text-primary);
+}
+
+.required {
+  color: #d92d20;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  min-height: 5.6rem;
+  padding: 1.6rem;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 0.8rem;
+  background: var(--bg-main);
+  font: inherit;
+  font-size: 1.3rem;
+  line-height: 1.9;
+  color: var(--text-primary);
+  text-align: start;
+  outline: none;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.input::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.3rem rgba(28, 68, 153, 0.12);
+}
+
+/* Email, phone and links read left to right in either language. */
+.ltr {
+  text-align: left;
+}
+
+.ltr::placeholder {
+  text-align: left;
+}
+
+/* …while an Arabic hint in one of them still sits on the right. */
+.ltr.rtlPlaceholder:placeholder-shown {
+  direction: ltr;
+  text-align: left;
+}
+
+.ltr.rtlPlaceholder::placeholder {
+  text-align: left;
+}
+
+/* A full-width line under a section's fields. */
+.note {
+  grid-column: 1 / -1;
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.textarea {
+  height: 12.8rem;
+  min-height: 12.8rem;
+  resize: vertical;
+}
+
+.selectWrap {
+  position: relative;
+}
+
+.select {
+  padding-inline-end: 4.4rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+.placeholder {
+  color: var(--text-secondary);
+}
+
+.select option {
+  color: var(--text-primary);
+}
+
+.selectChevron {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 1.6rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--text-secondary);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.inputError,
+.inputError:focus {
+  border-color: #d92d20;
+  box-shadow: 0 0 0 0.3rem rgba(217, 45, 32, 0.1);
+}
+
+/* ---- Chip rows: one pick (radio) or several (checkbox) ------------------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.chip {
+  position: relative;
+  display: flex;
+}
+
+.chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 4.4rem;
+  padding: 0.6rem 1.8rem;
+  border: 0.1rem solid #dce3ee;
+  border-radius: 999.9rem;
+  background: var(--bg-main);
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.chip:hover span {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.chip input:checked + span {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.chip input:focus-visible + span {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.2rem;
+}
+
+.group[aria-invalid="true"] .chip span {
+  border-color: #d92d20;
+}
+
+.error {
+  font-size: 1.2rem;
+  color: #d92d20;
+}
+
+.consent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  line-height: 2;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.checkbox {
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  margin: 0;
+  border: 0.1rem solid #bdc5d2;
+  border-radius: 0.4rem;
+  background: var(--bg-main) center / 1.2rem no-repeat;
+  appearance: none;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.checkbox:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.6l4.5-5' fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.checkbox:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.2rem;
+}
+
+.submitError {
+  font-size: 1.3rem;
+  color: #d92d20;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+  padding-inline: 0.4rem;
+}
+
+.submit {
+  --pill-w: auto;
+  --pill-pad: 0 2.4rem;
+  min-width: 18rem;
+  height: 4.8rem;
+}
+
+.submit:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.done {
+  justify-content: center;
+  min-height: 36rem;
+  text-align: center;
+}
+
+.doneTitle {
+  font-size: 2.6rem;
+  font-weight: 600;
+  line-height: 1.8;
+  color: #142441;
+}
+
+.doneText {
+  font-size: 1.6rem;
+  line-height: 2;
+  color: var(--text-secondary);
+}
+
+.again {
+  align-self: center;
+  font-size: 1.4rem;
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---- Large: the design system's form field (Figma 3503:32377), as the
+   careers application modal draws it — 16px text, a #a3a9b3 outline with
+   4px corners, a primary chevron and a 24px consent box. ----------------- */
+.large .label {
+  font-size: 1.6rem;
+}
+
+.large .required {
+  color: inherit;
+}
+
+.large .input {
+  border-color: #a3a9b3;
+  border-radius: 0.4rem;
+  font-size: 1.6rem;
+}
+
+.large .input:focus {
+  border-color: var(--primary);
+}
+
+.large .inputError,
+.large .inputError:focus {
+  border-color: #d92d20;
+}
+
+.large .textarea {
+  height: 14.4rem;
+  min-height: 14.4rem;
+}
+
+.large .select {
+  padding-inline-end: 4.4rem;
+}
+
+.large .selectChevron {
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary);
+}
+
+.large .note {
+  font-size: 1.6rem;
+}
+
+.large .extraTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.8;
+  color: var(--primary);
+}
+
+.large .error {
+  font-size: 1.3rem;
+}
+
+.large .consent {
+  gap: 1.6rem;
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.large .checkbox {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-color: var(--primary);
+  background-size: 1.6rem;
+}
+
+/* ---- Compact: the same design-system field at 14px, as the /contact page's
+   request form draws it (Figma 4431:12256) — a #a3a9b3 outline with 4px
+   corners and a 20px gap between the columns. ----------------------------- */
+.compact .grid {
+  column-gap: 2rem;
+}
+
+.compact .required {
+  color: inherit;
+}
+
+.compact .input {
+  border-color: #a3a9b3;
+  border-radius: 0.4rem;
+  font-size: 1.4rem;
+}
+
+.compact .input:focus {
+  border-color: var(--primary);
+}
+
+.compact .inputError,
+.compact .inputError:focus {
+  border-color: #d92d20;
+}
+
+.compact .textarea {
+  height: 14.4rem;
+  min-height: 14.4rem;
+}
+
+.compact .selectChevron {
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .extra {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    gap: 2rem;
+    padding: 2.4rem 1.6rem;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .chip span {
+    padding-inline: 1.4rem;
+    font-size: 1.3rem;
+  }
+
+  .doneTitle {
+    font-size: 2.2rem;
+  }
+}

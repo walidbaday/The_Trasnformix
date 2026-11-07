@@ -1,0 +1,381 @@
+/* Figma 4416:4876 — a TX Community event. Everything sits on the 1120px
+   column the artboard uses (160px margins at 1440). */
+.main {
+  --column: max(var(--gutter), calc((100% - 112rem) / 2));
+  --tajawal: var(--font-tajawal), var(--font-kufi), sans-serif;
+  --line: #e5e7eb;
+  background: var(--bg-main);
+}
+
+.title,
+.sectionTitle,
+.statsTitle,
+.statValue,
+.sessionOrder {
+  font-family: var(--tajawal);
+}
+
+.text {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.sectionTitle {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+/* ---- Title and cover (Figma 4416:4890) --------------------------------------------- */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  padding: 3.2rem var(--column) 4.8rem;
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.crumbs li + li::before {
+  content: "/";
+  padding-inline: 1.2rem;
+}
+
+.crumbs a {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.crumbs a:hover {
+  color: var(--primary);
+}
+
+.crumbs li:last-child a {
+  color: var(--text-primary);
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title {
+  font-size: 4.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.lead {
+  font-size: 1.8rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.meta,
+.metaGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.meta {
+  justify-content: space-between;
+  gap: 0.8rem 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.metaGroup {
+  gap: 0.8rem 2.4rem;
+}
+
+.place {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.cover {
+  overflow: hidden;
+  border-radius: 2.4rem;
+}
+
+/* ---- The workshop in brief (Figma 4416:4932) ----------------------------------------- */
+.overview {
+  display: flex;
+  align-items: flex-start;
+  gap: 6.4rem;
+  padding: 5.6rem var(--column);
+  background: var(--bg-card);
+}
+
+.intro {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2.4rem;
+  min-width: 0;
+}
+
+.stats {
+  display: flex;
+  flex: 0 0 25.6rem;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 2.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.statsTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--text-primary);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.stat + .stat {
+  padding-top: 2.4rem;
+  border-top: 0.1rem solid var(--line);
+}
+
+.statValue {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+}
+
+.statLabel {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* ---- Sessions (Figma 4416:4946) ---------------------------------------------------------- */
+.sessions {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+  padding: 7.2rem var(--column) 2.4rem;
+}
+
+.sessionList {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+}
+
+.session {
+  display: flex;
+  align-items: flex-start;
+  gap: 5.6rem;
+  padding-bottom: 4.8rem;
+  border-bottom: 0.1rem solid var(--line);
+}
+
+.sessionCopy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.sessionOrder {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+}
+
+.sessionTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.9;
+  color: var(--text-primary);
+}
+
+.sessionFigure {
+  display: flex;
+  flex: 0 0 38.4rem;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  border: 0.1rem solid var(--line);
+  border-radius: 1.6rem;
+}
+
+/* The portrait shots keep their top, where the speakers stand. */
+.photoImage {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.caption {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ---- Who came and the photos (Figma 4416:5011) ------------------------------------------ */
+.community {
+  padding: 4rem var(--column) 6.4rem;
+}
+
+.communityCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  padding: 5.6rem var(--column);
+  background: var(--bg-card);
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.4rem;
+}
+
+.galleryItem {
+  position: relative;
+  aspect-ratio: 262 / 180;
+  overflow: hidden;
+  border: 0.1rem solid var(--line);
+  border-radius: 1.6rem;
+}
+
+@media (max-width: 1024px) {
+  .title {
+    font-size: 3.6rem;
+  }
+
+  .overview {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 3.2rem;
+  }
+
+  .stats {
+    flex-basis: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .statsTitle {
+    flex-basis: 100%;
+  }
+
+  .stat {
+    flex: 1;
+  }
+
+  .stat + .stat {
+    padding-top: 0;
+    padding-inline-start: 2.4rem;
+    border-top: 0;
+    border-inline-start: 0.1rem solid var(--line);
+  }
+
+  .session {
+    flex-direction: column-reverse;
+    gap: 2.4rem;
+  }
+
+  .sessionFigure {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .photo {
+    height: auto !important;
+    aspect-ratio: 384 / 260;
+  }
+
+  .galleryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    gap: 2.4rem;
+    padding-bottom: 3.2rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .lead {
+    font-size: 1.6rem;
+  }
+
+  .sectionTitle {
+    font-size: 2.6rem;
+  }
+
+  .cover {
+    border-radius: 1.6rem;
+  }
+
+  .overview,
+  .gallery {
+    padding-block: 4rem;
+  }
+
+  .sessions {
+    gap: 3.2rem;
+    padding-top: 4.8rem;
+  }
+
+  .sessionList {
+    gap: 3.2rem;
+  }
+
+  .session {
+    padding-bottom: 3.2rem;
+  }
+
+  .sessionTitle {
+    font-size: 2rem;
+  }
+
+  .galleryGrid {
+    gap: 1.2rem;
+  }
+}

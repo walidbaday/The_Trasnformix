@@ -13,22 +13,27 @@ import {
   useMemo,
   useRef,
   useState,
-  useSyncExternalStore,
   type FormEvent,
   type KeyboardEvent,
   type ReactNode,
 } from "react";
-import { createPortal } from "react-dom";
 import navStyles from "@/english/components/sections/Navbar.module.css";
 import { inter } from "@/lib/fonts";
 import { SERVICES, type Service } from "@/english/lib/services";
+import { EXIT_MS, ModalFrame } from "@/english/components/contact/ModalFrame";
+import { PartnershipModal } from "@/english/components/contact/PartnershipModal";
 import styles from "@/english/components/contact/ContactModal.module.css";
 
 /* ==========================================================================
    Context — any control on any page can open the form.
    ========================================================================== */
 
-type ContactModalContext = { open: () => void };
+type ContactModalContext = {
+  /** The project form: the navbar's call and most pills without a link. */
+  open: () => void;
+  /** The six ways to work with Transformix, each leading to its form. */
+  openPartnerships: () => void;
+};
 
 const Context = createContext<ContactModalContext | null>(null);
 
@@ -41,15 +46,17 @@ export function useContactModal() {
 }
 
 export function ContactModalProvider({ children }: { children: ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const open = useCallback(() => setIsOpen(true), []);
-  const close = useCallback(() => setIsOpen(false), []);
-  const value = useMemo(() => ({ open }), [open]);
+  const [shown, setShown] = useState<"contact" | "partnerships" | null>(null);
+  const open = useCallback(() => setShown("contact"), []);
+  const openPartnerships = useCallback(() => setShown("partnerships"), []);
+  const close = useCallback(() => setShown(null), []);
+  const value = useMemo(() => ({ open, openPartnerships }), [open, openPartnerships]);
 
   return (
     <Context.Provider value={value}>
       {children}
-      <ContactModal open={isOpen} onClose={close} />
+      <ContactModal open={shown === "contact"} onClose={close} />
+      <PartnershipModal open={shown === "partnerships"} onClose={close} />
     </Context.Provider>
   );
 }
@@ -117,17 +124,6 @@ const validate = (step: 1 | 2 | 3, form: FormState): Errors => {
   return errors;
 };
 
-/** Length of the close transition (matches --dur). */
-const EXIT_MS = 320;
-
-/* The portal needs `document`, so it renders only once hydrated. */
-const noopSubscribe = () => () => {};
-const useIsClient = () =>
-  useSyncExternalStore(noopSubscribe, () => true, () => false);
-
-const FOCUSABLE =
-  'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
 const cx = (...names: (string | false | undefined)[]) =>
   names.filter(Boolean).join(" ");
 
@@ -135,28 +131,13 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
   const router = useRouter();
   const pathname = usePathname();
   const titleId = useId();
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const openerRef = useRef<HTMLElement | null>(null);
-  const wasOpenRef = useRef(false);
-  const isClient = useIsClient();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [step, setStep] = useState<Step>(1);
   const [form, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-
-  /* The dialog stays mounted and is hidden (and inert) while closed, so both
-     directions are plain CSS transitions. Focus goes back to whatever opened
-     it once it closes. */
-  useEffect(() => {
-    if (open) {
-      openerRef.current = document.activeElement as HTMLElement | null;
-    } else if (wasOpenRef.current) {
-      openerRef.current?.focus?.({ preventScroll: true });
-    }
-    wasOpenRef.current = open;
-  }, [open]);
 
   /* After a sent request, the next opening starts afresh. */
   useEffect(() => {
@@ -167,49 +148,6 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
     }, EXIT_MS);
     return () => clearTimeout(timer);
   }, [open, step]);
-
-  /* Lock the page behind the dialog. The scrollbar's width is handed to the
-     root as padding so the layout (and the viewport-scaled rem) stay put. */
-  useEffect(() => {
-    if (!open) return;
-    const root = document.documentElement;
-    const scrollbar = window.innerWidth - root.clientWidth;
-    const previous = { overflow: root.style.overflow, padding: root.style.paddingRight };
-    root.style.overflow = "hidden";
-    if (scrollbar > 0) root.style.paddingRight = `${scrollbar}px`;
-    return () => {
-      root.style.overflow = previous.overflow;
-      root.style.paddingRight = previous.padding;
-    };
-  }, [open]);
-
-  /* Each step hands focus to the dialog itself: its title is announced, and
-     the fields stay in the resting state the artboards draw. */
-  useEffect(() => {
-    if (open) dialogRef.current?.focus({ preventScroll: true });
-  }, [open, step]);
-
-  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Escape") {
-      event.stopPropagation();
-      onClose();
-      return;
-    }
-    if (event.key !== "Tab") return;
-    const nodes = dialogRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE);
-    if (!nodes?.length) return;
-    const first = nodes[0];
-    const last = nodes[nodes.length - 1];
-    const atStart =
-      document.activeElement === first || document.activeElement === dialogRef.current;
-    if (event.shiftKey && atStart) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  };
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -243,7 +181,7 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
     setErrors(found);
     if (Object.values(found).some(Boolean)) {
       const firstInvalid = Object.keys(found)[0];
-      dialogRef.current
+      formRef.current
         ?.querySelector<HTMLElement>(`[data-field="${firstInvalid}"]`)
         ?.focus();
       return;
@@ -257,8 +195,6 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
     if (pathname === "/en") window.scrollTo({ top: 0, behavior: "smooth" });
     else router.push("/en");
   };
-
-  if (!isClient) return null;
 
   const errorId = (field: keyof FormState) => `${titleId}-${field}-error`;
   const fieldProps = (field: keyof FormState) => ({
@@ -274,203 +210,183 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
       </p>
     ) : null;
 
-  return createPortal(
-    <div
-      className={cx(styles.overlay, open && styles.overlayIn)}
-      inert={!open}
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose();
-      }}
+  return (
+    <ModalFrame
+      open={open}
+      onClose={onClose}
+      labelledBy={titleId}
+      focusKey={step}
+      className={cx(step === "done" && styles.dialogDone, inter.variable)}
     >
-      <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        tabIndex={-1}
-        className={cx(styles.dialog, step === "done" && styles.dialogDone, inter.variable)}
-        onKeyDown={onKeyDown}
-      >
-        <button
-          type="button"
-          className={styles.close}
-          aria-label={"Close"}
-          onClick={onClose}
-        >
-          <Image src="/icons/modal-close.svg" alt="" width={18} height={24} aria-hidden />
-        </button>
-
-        {step === "done" ? (
-          <div className={styles.done}>
-            <div className={styles.doneCopy}>
-              <h2 id={titleId} className={styles.doneTitle}>
-                {" Thank you for contacting us "}</h2>
-              <p className={styles.doneText}>
-                {" We have received your request. The Transformix team will contact you soon to understand your needs and discuss the next step. "}</p>
-            </div>
-            <button
-              type="button"
-              className={styles.doneButton}
-              onClick={goHome}
-            >
-              {" Back to home "}</button>
+      {step === "done" ? (
+        <div className={styles.done}>
+          <div className={styles.doneCopy}>
+            <h2 id={titleId} className={styles.doneTitle}>
+              {" Thank you for contacting us "}</h2>
+            <p className={styles.doneText}>
+              {" We have received your request. The Transformix team will contact you soon to understand your needs and discuss the next step. "}</p>
           </div>
-        ) : (
-          <>
-            <div className={styles.header}>
-              <div className={styles.progress} aria-hidden>
-                {[1, 2, 3].map((n) => (
-                  <span key={n} className={cx(styles.bar, n <= step && styles.barOn)} />
-                ))}
-              </div>
-              <p className={styles.caption}>
-                {" Steps 1 to 3 "}<span className={styles.visuallyHidden}> {" — Step "}{step} {" of 3"}</span>
-              </p>
+          <button
+            type="button"
+            className={styles.doneButton}
+            onClick={goHome}
+          >
+            {" Back to home "}</button>
+        </div>
+      ) : (
+        <>
+          <div className={styles.header}>
+            <div className={styles.progress} aria-hidden>
+              {[1, 2, 3].map((n) => (
+                <span key={n} className={cx(styles.bar, n <= step && styles.barOn)} />
+              ))}
             </div>
+            <p className={styles.caption}>
+              {" Steps 1 to 3 "}<span className={styles.visuallyHidden}> {" — Step "}{step} {" of 3"}</span>
+            </p>
+          </div>
 
-            <form className={styles.body} onSubmit={onSubmit} noValidate>
-              <div key={step} className={styles.step}>
-                <h2 id={titleId} className={styles.title}>
-                  {STEP_COPY[step].title}
-                </h2>
-                <p className={styles.subtitle}>{STEP_COPY[step].subtitle}</p>
+          <form ref={formRef} className={styles.body} onSubmit={onSubmit} noValidate>
+            <div key={step} className={styles.step}>
+              <h2 id={titleId} className={styles.title}>
+                {STEP_COPY[step].title}
+              </h2>
+              <p className={styles.subtitle}>{STEP_COPY[step].subtitle}</p>
 
-                <div className={styles.fields}>
-                  {step === 1 && (
-                    <>
-                      <div className={styles.field}>
-                        <label className={styles.label} htmlFor={`${titleId}-name`}>
-                          {" Full name "}</label>
-                        <input
-                          {...fieldProps("name")}
-                          className={cx(styles.input, errors.name && styles.inputError)}
-                          type="text"
-                          autoComplete="name"
-                          placeholder={"Ahmed Mohamed"}
-                          value={form.name}
-                          onChange={(event) => update("name", event.target.value)}
-                        />
-                        {fieldError("name")}
-                      </div>
-                      <div className={styles.field}>
-                        <label className={styles.label} htmlFor={`${titleId}-phone`}>
-                          {" Phone number "}</label>
-                        <input
-                          {...fieldProps("phone")}
-                          className={cx(
-                            styles.input,
-                            styles.inputPhone,
-                            errors.phone && styles.inputError,
-                          )}
-                          type="tel"
-                          dir="ltr"
-                          inputMode="tel"
-                          autoComplete="tel"
-                          placeholder="+1 (555) 000-0000"
-                          value={form.phone}
-                          onChange={(event) => update("phone", event.target.value)}
-                        />
-                        {fieldError("phone")}
-                      </div>
-                    </>
-                  )}
-
-                  {step === 2 && (
-                    <>
-                      <div className={styles.field}>
-                        <label className={styles.label} htmlFor={`${titleId}-company`}>
-                          {" Company name "}</label>
-                        <input
-                          {...fieldProps("company")}
-                          className={cx(styles.input, errors.company && styles.inputError)}
-                          type="text"
-                          autoComplete="organization"
-                          placeholder={"Transformix"}
-                          value={form.company}
-                          onChange={(event) => update("company", event.target.value)}
-                        />
-                        {fieldError("company")}
-                      </div>
-                      <div className={styles.field}>
-                        <label className={styles.label} htmlFor={`${titleId}-website`}>
-                          {" Website (if available) "}</label>
-                        <input
-                          {...fieldProps("website")}
-                          className={cx(
-                            styles.input,
-                            styles.inputWebsite,
-                            errors.website && styles.inputError,
-                          )}
-                          type="url"
-                          dir="ltr"
-                          inputMode="url"
-                          autoComplete="url"
-                          value={form.website}
-                          onChange={(event) => update("website", event.target.value)}
-                        />
-                        {fieldError("website")}
-                      </div>
-                    </>
-                  )}
-
-                  {step === 3 && (
-                    <>
-                      <div className={styles.field}>
-                        <span className={styles.label} id={`${titleId}-services-label`}>
-                          {" Services "}</span>
-                        <ServicePicker
-                          id={`${titleId}-services`}
-                          labelledBy={`${titleId}-services-label`}
-                          value={form.services}
-                          invalid={Boolean(errors.services)}
-                          describedBy={errors.services ? errorId("services") : undefined}
-                          onChange={(services) => update("services", services)}
-                        />
-                        {fieldError("services")}
-                      </div>
-                      <div className={styles.field}>
-                        <label className={styles.label} htmlFor={`${titleId}-message`}>
-                          {" Tell us about your project "}</label>
-                        <textarea
-                          {...fieldProps("message")}
-                          className={cx(styles.input, styles.textarea)}
-                          placeholder={"Write here"}
-                          value={form.message}
-                          onChange={(event) => update("message", event.target.value)}
-                        />
-                      </div>
-                    </>
-                  )}
-                </div>
-
-                {submitError && (
-                  <p role="alert" className={styles.submitError}>
-                    {submitError}
-                  </p>
+              <div className={styles.fields}>
+                {step === 1 && (
+                  <>
+                    <div className={styles.field}>
+                      <label className={styles.label} htmlFor={`${titleId}-name`}>
+                        {" Full name "}</label>
+                      <input
+                        {...fieldProps("name")}
+                        className={cx(styles.input, errors.name && styles.inputError)}
+                        type="text"
+                        autoComplete="name"
+                        placeholder={"Ahmed Mohamed"}
+                        value={form.name}
+                        onChange={(event) => update("name", event.target.value)}
+                      />
+                      {fieldError("name")}
+                    </div>
+                    <div className={styles.field}>
+                      <label className={styles.label} htmlFor={`${titleId}-phone`}>
+                        {" Phone number "}</label>
+                      <input
+                        {...fieldProps("phone")}
+                        className={cx(
+                          styles.input,
+                          styles.inputPhone,
+                          errors.phone && styles.inputError,
+                        )}
+                        type="tel"
+                        dir="ltr"
+                        inputMode="tel"
+                        autoComplete="tel"
+                        placeholder="+1 (555) 000-0000"
+                        value={form.phone}
+                        onChange={(event) => update("phone", event.target.value)}
+                      />
+                      {fieldError("phone")}
+                    </div>
+                  </>
                 )}
 
-                <div className={cx(styles.actions, styles[`actions${step}`])}>
-                  <button type="submit" className={styles.primary} disabled={submitting}>
-                    <span>
-                      {step === 3 ? (submitting ? "Sending…" : "Send request") : "Next"}
-                    </span>
-                    <Image
-                      className={styles.arrow}
-                      src="/icons/modal-arrow.svg"
-                      alt=""
-                      width={14}
-                      height={16}
-                      aria-hidden
-                    />
-                  </button>
-                </div>
+                {step === 2 && (
+                  <>
+                    <div className={styles.field}>
+                      <label className={styles.label} htmlFor={`${titleId}-company`}>
+                        {" Company name "}</label>
+                      <input
+                        {...fieldProps("company")}
+                        className={cx(styles.input, errors.company && styles.inputError)}
+                        type="text"
+                        autoComplete="organization"
+                        placeholder={"Transformix"}
+                        value={form.company}
+                        onChange={(event) => update("company", event.target.value)}
+                      />
+                      {fieldError("company")}
+                    </div>
+                    <div className={styles.field}>
+                      <label className={styles.label} htmlFor={`${titleId}-website`}>
+                        {" Website (if available) "}</label>
+                      <input
+                        {...fieldProps("website")}
+                        className={cx(
+                          styles.input,
+                          styles.inputWebsite,
+                          errors.website && styles.inputError,
+                        )}
+                        type="url"
+                        dir="ltr"
+                        inputMode="url"
+                        autoComplete="url"
+                        value={form.website}
+                        onChange={(event) => update("website", event.target.value)}
+                      />
+                      {fieldError("website")}
+                    </div>
+                  </>
+                )}
+
+                {step === 3 && (
+                  <>
+                    <div className={styles.field}>
+                      <span className={styles.label} id={`${titleId}-services-label`}>
+                        {" Services "}</span>
+                      <ServicePicker
+                        id={`${titleId}-services`}
+                        labelledBy={`${titleId}-services-label`}
+                        value={form.services}
+                        invalid={Boolean(errors.services)}
+                        describedBy={errors.services ? errorId("services") : undefined}
+                        onChange={(services) => update("services", services)}
+                      />
+                      {fieldError("services")}
+                    </div>
+                    <div className={styles.field}>
+                      <label className={styles.label} htmlFor={`${titleId}-message`}>
+                        {" Tell us about your project "}</label>
+                      <textarea
+                        {...fieldProps("message")}
+                        className={cx(styles.input, styles.textarea)}
+                        placeholder={"Write here"}
+                        value={form.message}
+                        onChange={(event) => update("message", event.target.value)}
+                      />
+                    </div>
+                  </>
+                )}
               </div>
-            </form>
-          </>
-        )}
-      </div>
-    </div>,
-    document.body,
+
+              {submitError && (
+                <p role="alert" className={styles.submitError}>
+                  {submitError}
+                </p>
+              )}
+
+              <div className={cx(styles.actions, styles[`actions${step}`])}>
+                <button type="submit" className={styles.primary} disabled={submitting}>
+                  <span>
+                    {step === 3 ? (submitting ? "Sending…" : "Send request") : "Next"}
+                  </span>
+                  <Image
+                    className={styles.arrow}
+                    src="/icons/modal-arrow.svg"
+                    alt=""
+                    width={14}
+                    height={16}
+                    aria-hidden
+                  />
+                </button>
+              </div>
+            </div>
+          </form>
+        </>
+      )}
+    </ModalFrame>
   );
 }
 

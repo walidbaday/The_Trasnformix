@@ -1,0 +1,234 @@
+/* The academies band: Process's heading over three hover cards on a pale
+   ground, so the resting white cards still read as cards. */
+.section {
+  padding: 9.6rem 7.6rem;
+  background: #f1f5f9;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  scroll-margin-top: 12rem;
+}
+
+.inner {
+  width: 129.1rem;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.head {
+  max-width: 88rem;
+  margin: 0 auto 4.8rem;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-kufi), sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #11295c;
+}
+
+.subtitle {
+  margin-top: 1.6rem;
+  font-size: 2.2rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The number sits at the top and the copy at the bottom; the copy grows
+   upwards when the link opens beneath it. */
+.card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3.2rem;
+  min-height: 54rem;
+  padding: 3.2rem;
+  overflow: hidden;
+  background: var(--bg-main);
+  cursor: pointer;
+}
+
+/* The picture is clipped away to its top edge at rest. Opening drops it like
+   a blind; closing draws it back up a little faster. */
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 380ms var(--ease-in-out);
+}
+
+.media img {
+  object-fit: cover;
+  transform: scale(1.08);
+  transition: transform 380ms var(--ease-in-out);
+}
+
+/* The brand tint, deepening towards the copy so white text stays legible. */
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(28, 68, 153, 0.84) 0%, rgba(17, 41, 92, 0.86) 55%, rgba(9, 22, 52, 0.95) 100%);
+}
+
+.number {
+  font: 400 9rem/1 Arial, sans-serif;
+  letter-spacing: -0.04em;
+  color: #11295c;
+  transition: color 300ms var(--ease-out);
+}
+
+.cardTitle {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #11295c;
+  transition: color 300ms var(--ease-out);
+}
+
+.cardText {
+  margin-top: 1.2rem;
+  font-size: 1.6rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  transition: color 300ms var(--ease-out);
+}
+
+/* The link's row opens from nothing (0fr to 1fr), lifting the copy above it. */
+.action {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transform: translateY(0.8rem);
+  transition:
+    grid-template-rows 380ms var(--ease-in-out),
+    opacity 200ms var(--ease-out),
+    transform 380ms var(--ease-in-out);
+}
+
+.action > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 2.4rem;
+  padding: 1rem 1.8rem;
+  border-radius: 999.9rem;
+  background: var(--bg-main);
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 500;
+  transition: gap var(--dur) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover {
+  gap: 1.4rem;
+  background: var(--blue-light);
+}
+
+/* The row clips anything outside it, so the ring sits inside the pill. */
+.link:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: -0.5rem;
+}
+
+.link svg {
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.link svg:dir(rtl) {
+  transform: scaleX(-1);
+}
+
+/* ---- Open card --------------------------------------------------------- */
+.card[data-active="true"] {
+  cursor: auto;
+}
+
+.card[data-active="true"] .media {
+  clip-path: inset(0);
+  transition: clip-path 650ms var(--ease-out);
+}
+
+.card[data-active="true"] .media img {
+  transform: none;
+  transition: transform 900ms var(--ease-out);
+}
+
+.card[data-active="true"] :is(.number, .cardTitle) {
+  color: var(--text-inverse);
+  transition-delay: 120ms;
+}
+
+.card[data-active="true"] .cardText {
+  color: rgba(255, 255, 255, 0.88);
+  transition-delay: 120ms;
+}
+
+.card[data-active="true"] .action {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: none;
+  transition:
+    grid-template-rows 550ms var(--ease-out) 100ms,
+    opacity 400ms var(--ease-out) 250ms,
+    transform 550ms var(--ease-out) 100ms;
+}
+
+@media (max-width: 1024px) {
+  .section { padding: 5.6rem var(--gutter); }
+  .head { margin-bottom: 3.2rem; }
+  .card { min-height: 50rem; padding: 2.4rem; }
+  .number { font-size: 7.2rem; }
+  .cardTitle { font-size: 2.2rem; }
+}
+
+/* Too narrow to hover between columns: every card stands open, stacked. */
+@media (max-width: 900px) {
+  .list { grid-template-columns: minmax(0, 1fr); gap: 1.6rem; }
+  .card { min-height: 40rem; cursor: auto; }
+  .card .media { clip-path: none; transition: none; }
+  .card .media img { transform: none; transition: none; }
+  .card :is(.number, .cardTitle) { color: var(--text-inverse); }
+  .card .cardText { color: rgba(255, 255, 255, 0.88); }
+  .card .action { grid-template-rows: 1fr; opacity: 1; transform: none; transition: none; }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 4.8rem var(--gutter); }
+  .head { margin-bottom: 2.8rem; }
+  .title { font-size: 2.6rem; }
+  .subtitle { font-size: 1.7rem; }
+  .card { min-height: 36rem; }
+  .number { font-size: 5.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media,
+  .media img,
+  .number,
+  .cardTitle,
+  .cardText,
+  .action,
+  .card[data-active="true"] :is(.media, .number, .cardTitle, .cardText, .action),
+  .card[data-active="true"] .media img {
+    transition: none;
+  }
+}

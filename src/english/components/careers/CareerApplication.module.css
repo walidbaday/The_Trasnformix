@@ -1,0 +1,147 @@
+/* Figma 4334:4697 — the career application: a 1024-wide neutral sheet, its
+   heading, and the white card of basic details. The consent row and the
+   send button follow the careers page's own (Figma 4352:5565, 4352:5570). */
+.dialog {
+  width: 102.4rem;
+  background: #f5f6f8;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 6.4rem 8rem 4.8rem;
+}
+
+.eyebrow {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: var(--primary);
+  text-align: left;
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.lead {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 3.2rem;
+  border-radius: 1.6rem;
+  background: var(--bg-main);
+}
+
+.cardTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.required {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.consent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.disclaimer {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.submitError {
+  font-size: 1.4rem;
+  color: #d92d20;
+}
+
+/* The send button sits at the far (left) end, as drawn. */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26rem;
+  height: 6.4rem;
+  padding: 0 3.2rem;
+  border-radius: 4.7rem;
+  background: var(--primary);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.9;
+  color: var(--text-inverse);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.submit:hover {
+  background: var(--blue-dark);
+  box-shadow: 0 0.8rem 2.4rem rgba(28, 68, 153, 0.25);
+}
+
+.submit:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+.submit:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+@media (max-width: 1024px) {
+  .body {
+    padding: 6.4rem 4rem 4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .body {
+    gap: 2rem;
+    padding: 6.4rem 1.6rem 3.2rem;
+  }
+
+  .title {
+    font-size: 2.6rem;
+  }
+
+  .lead {
+    font-size: 1.6rem;
+  }
+
+  .card {
+    gap: 2rem;
+    padding: 2.4rem 1.6rem;
+  }
+
+  .cardTitle {
+    font-size: 2rem;
+  }
+
+  .submit {
+    width: 100%;
+    min-width: 0;
+  }
+}

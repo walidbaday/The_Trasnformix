@@ -28,8 +28,8 @@ const LAYERS = [
 ];
 
 /** Figma 3383:8325 "Desktop - 144" — copy on the right, the e-learning
-    illustration on the left. The #fcfbfa arc rising into the next band is
-    drawn by <AcademyCurtain>, which slides that band over this section. */
+    illustration on the left. AcademyCurtain brings in the next band using
+    the site's shared upward reveal. */
 export function AcademyHero() {
   return (
     <section className={styles.section}>

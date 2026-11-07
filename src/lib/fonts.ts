@@ -1,4 +1,4 @@
-import { Alexandria, Inter, Noto_Serif } from "next/font/google";
+import { Alexandria, Inter, Noto_Serif, Plus_Jakarta_Sans } from "next/font/google";
 import localFont from "next/font/local";
 
 /* Secondary faces the artboards call for. Neither is preloaded: each covers a
@@ -53,6 +53,17 @@ export const notoSerif = Noto_Serif({
   variable: "--font-noto-serif",
   subsets: ["latin"],
   weight: ["400"],
+  display: "swap",
+  preload: false,
+});
+
+/** Plus Jakarta Sans — the Latin labels and card numbers of the contact and
+    service pages (Figma 4431:12108, 4431:12464, 4431:12992), and the TX
+    Community event covers (4416:4905). */
+export const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
   display: "swap",
   preload: false,
 });

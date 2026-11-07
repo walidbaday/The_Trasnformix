@@ -1,43 +1,63 @@
+import Image from "next/image";
 import { PillButton } from "@/components/ui/PillButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { tajawal } from "@/lib/fonts";
 import styles from "./Hero.module.css";
 
-/* Figma 3652:7318 — headline, a three-line lead and the two calls to action,
-   above the 1240 x 564 media band (Figma 3648:6871). */
+/* Headline, lead and the two calls to action, layered over the full-screen
+   hero artwork on the reading-start side. Hero.module.css mirrors the artwork
+   in Arabic so its logo faces the copy from the other side.
+
+   The hero then stays pinned while the full-screen showreel scrolls up over
+   it like a curtain, and the page carries on once the reel has covered it. */
 export function Hero() {
   return (
     <section className={`${styles.hero} ${tajawal.variable}`}>
-      <div className={styles.content}>
-        <div className={styles.copy}>
-          <Reveal as="h1" className={styles.title}>
-            شريكك التقني لتطوير الأعمال
-          </Reveal>
-          <Reveal className={styles.lead} delay={120}>
-            {/* <p className={styles.subtitle}>
-              من أتمتة العمليات بالذكاء الاصطناعي إلى المنصات الرقمية المتكاملة
-            </p> */}
-            <p className={styles.text}>
-              <span className={styles.textLine}>معنا في ترانسفورمكس ندمج بين حلول الذكاء الاصطناعي، تطوير البرمجيات، وأنظمة ERP</span>{" "}
-              <span className={styles.textLine}>لنلغي الهدر التشغيلي ونمنحك تجارب رقمية تقود نمو شركتك بثقة</span>{" "}
-              <span className={styles.textEnding}>وبقرارات مبنية على البيانات</span>
-            </p>
+      <div className={styles.stage}>
+        <div className={styles.media}>
+          <Image
+            src="/images/hero/hero.png"
+            alt=""
+            fill
+            preload
+            sizes="100vw"
+            className={styles.image}
+          />
+        </div>
+
+        <div className={styles.content}>
+          <div className={styles.copy}>
+            <Reveal as="h1" className={styles.title}>
+              نصنع فرصًا جديدة للأعمال بالتكنولوجيا والابتكار
+            </Reveal>
+            <Reveal className={styles.lead} delay={120}>
+              <p className={styles.subtitle}>
+                نُمكّن الأعمال من النمو وتعزيز تنافسيتها وإعادة ابتكار نماذجها التشغيلية والتجارية،
+                بتوظيف الذكاء الاصطناعي والتكنولوجيا الرقمية المتقدمة.
+              </p>
+              <p className={styles.text}>
+                تجمع ترانسفورمكس خبراتها في الذكاء الاصطناعي وعلوم البيانات وهندسة البرمجيات والتجارة
+                الرقمية لتطوير حلول ومنصات ومنتجات تقنية، مدعومة بالبحث والتطوير والشراكات
+                الاستراتيجية، وفق مبادئ تكنولوجيا الجيل الخامس.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal className={styles.actions} delay={240}>
+            {/* Down to the services and products further along this page. */}
+            <PillButton className={styles.primaryAction} href="#services" variant="inverse">
+              استكشف حلولنا
+            </PillButton>
+            {/* Opens the six ways to work with us, each leading to its form. */}
+            <PillButton className={styles.secondaryAction} variant="ghost" opens="partnerships">
+              ناقش فرصة تعاون
+            </PillButton>
           </Reveal>
         </div>
-        <Reveal className={styles.actions} delay={240}>
-          <PillButton className={styles.primaryAction}>
-            ناقش مشروعك مع خبير تقني
-          </PillButton>
-          <PillButton href="/works" variant="soft">
-            عرض سابقة الاعمال
-          </PillButton>
-        </Reveal>
       </div>
 
-      {/* The showreel fills the hero band. Muted and
-          inline so it may autoplay; the band's gradient shows through until
-          the first frame decodes, which is why there is no poster. */}
-      <div className={styles.video}>
+      {/* Muted and inline so it may autoplay; the reel's black shows through
+          until the first frame decodes. */}
+      <div className={styles.reel}>
         <video
           autoPlay
           muted

@@ -1,0 +1,158 @@
+/* The event cover (Figma 4416:4905 on the page at 1120 × 630, 4416:4838 on a
+   card at 498 × 389). Its type and grid are set in container units, so each
+   size keeps the artboard's proportions at any width; the px figures in the
+   comments are the artboard's. */
+.cover {
+  position: relative;
+  container-type: inline-size;
+  overflow: hidden;
+  background-color: #0a1836;
+  color: var(--text-inverse);
+  line-height: normal;
+}
+
+.page {
+  aspect-ratio: 1120 / 630;
+  /* 160 × 157.5 grid cells */
+  --cell-x: 14.286cqi;
+  --cell-y: 14.063cqi;
+}
+
+.card {
+  aspect-ratio: 498 / 389;
+  /* 60 × 59.06 grid cells */
+  --cell-x: 12.048cqi;
+  --cell-y: 11.86cqi;
+}
+
+/* The faint editorial grid, ruled from the top-left corner as drawn. */
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-position: left top;
+  background-size: var(--cell-x) var(--cell-y);
+}
+
+.inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.page .inner {
+  padding: 4.286cqi; /* 48 */
+}
+
+.card .inner {
+  padding: 3.614cqi; /* 18 */
+}
+
+.identity,
+.edition,
+.topics,
+.location {
+  font-family: var(--font-jakarta), "Segoe UI", Arial, sans-serif;
+}
+
+/* The mark sits in the far corner from the headline. */
+.identity {
+  align-self: flex-end;
+  font-weight: 700;
+}
+
+.page .identity {
+  font-size: 1.607cqi; /* 18 */
+  letter-spacing: 0.179cqi;
+}
+
+.card .identity {
+  font-size: 2.008cqi; /* 10 */
+  letter-spacing: 0.151cqi;
+}
+
+.headline {
+  display: flex;
+  flex-direction: column;
+}
+
+.page .headline {
+  gap: 1.25cqi; /* 14 */
+}
+
+.card .headline {
+  gap: 1.054cqi; /* 5.25 */
+}
+
+.edition {
+  font-weight: 600;
+}
+
+.page .edition {
+  font-size: 11.071cqi; /* 124 */
+  letter-spacing: -0.536cqi;
+}
+
+.card .edition {
+  font-size: 9.337cqi; /* 46.5 */
+  letter-spacing: -0.452cqi;
+}
+
+.theme {
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-weight: 700;
+}
+
+.page .theme {
+  font-size: 3.929cqi; /* 44 */
+}
+
+.card .theme {
+  font-size: 3.313cqi; /* 16.5 */
+}
+
+.topics {
+  color: #c6d2e9;
+  white-space: pre-wrap;
+}
+
+.page .topics {
+  font-size: 1.607cqi; /* 18 */
+  letter-spacing: 0.089cqi;
+}
+
+.card .topics {
+  font-size: 1.355cqi; /* 6.75 */
+  letter-spacing: 0.075cqi;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+/* On a card the tally stands alone in the far corner. */
+.card .footer {
+  justify-content: flex-end;
+}
+
+.page .tally {
+  font-size: 1.607cqi; /* 18 */
+}
+
+.card .tally {
+  font-size: 1.807cqi; /* 9 */
+}
+
+.location {
+  font-size: 1.25cqi; /* 14 */
+  letter-spacing: 0.179cqi;
+  color: #c6d2e9;
+}

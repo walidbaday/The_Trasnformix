@@ -1,0 +1,255 @@
+/* The products slider: Process's centred heading over a two-column stage
+   held between hairlines, as in Framer's Slide Content Toggle. */
+.section {
+  padding: 9.6rem 7.6rem;
+  background: var(--bg-main);
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  scroll-margin-top: 12rem;
+}
+
+.inner {
+  width: 129.1rem;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.head {
+  max-width: 88rem;
+  margin: 0 auto 4.8rem;
+  text-align: center;
+}
+
+.heading {
+  font-family: var(--font-kufi), sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #11295c;
+}
+
+.lead {
+  margin-top: 1.6rem;
+  font-size: 2.2rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 5.6rem;
+  padding-block: 4rem;
+  border-block: 0.1rem solid #dce2ea;
+}
+
+/* The copy fills the row so the arrows sit level with the picture's foot. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.viewport {
+  overflow: hidden;
+}
+
+.name {
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #11295c;
+  text-align: start;
+}
+
+/* A Latin product name keeps the column's alignment (the English copy of
+   this file is generated with `left` here). */
+.name[dir="ltr"] {
+  text-align: left;
+}
+
+.title {
+  margin-top: 0.4rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.text {
+  margin-top: 2rem;
+  font-size: 1.8rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.details {
+  overflow: hidden;
+}
+
+.details p {
+  padding-top: 1.6rem;
+  font-size: 1.6rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem 3.2rem;
+  margin-top: 2.8rem;
+}
+
+.more,
+.site {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 4.4rem;
+  border-bottom: 0.1rem solid #dce2ea;
+  color: var(--primary);
+  font-size: 1.6rem;
+  font-weight: 500;
+  transition: gap var(--dur) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.more:hover,
+.site:hover {
+  gap: 1.4rem;
+  border-color: var(--primary);
+}
+
+.more svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.more[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.site > span {
+  color: #05b8d5;
+  font: 2rem Arial, sans-serif;
+}
+
+/* Framer's square arrows: a hairline box, the arrow in the brand blue. */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: auto;
+  padding-top: 3.2rem;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 0.1rem solid #dce2ea;
+  color: var(--primary);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.arrow:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.arrow svg {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+/* Drawn for left-to-right reading; mirrored on the Arabic page. */
+.back:dir(rtl),
+.forward:dir(rtl) {
+  transform: scaleX(-1);
+}
+
+.counter {
+  margin-inline-start: 1.6rem;
+  font: 500 1.6rem Arial, sans-serif;
+  color: #11295c;
+}
+
+.counter > span {
+  color: #9aa5b5;
+}
+
+/* The picture eases closer on hover (Framer scales its image to 1.1). */
+.frame {
+  position: relative;
+  align-self: start;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 1.6rem;
+  background: #eef3fa;
+}
+
+.picture {
+  position: absolute;
+  inset: 0;
+}
+
+.picture img {
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out);
+}
+
+.contain img {
+  padding: 2.4rem;
+  object-fit: contain;
+}
+
+.frame:hover .picture img {
+  transform: scale(1.1);
+}
+
+.frame > .preload {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .section { padding: 5.6rem var(--gutter); }
+  .head { margin-bottom: 3.2rem; }
+  .stage { gap: 3.2rem; }
+  .name { font-size: 3rem; }
+}
+
+/* One column: the picture first, then the copy and its arrows. */
+@media (max-width: 900px) {
+  .stage { grid-template-columns: minmax(0, 1fr); padding-block: 3.2rem; }
+  .frame { order: -1; }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 4.8rem var(--gutter); }
+  .head { margin-bottom: 2.8rem; }
+  .heading { font-size: 2.6rem; }
+  .lead { font-size: 1.7rem; }
+  .stage { gap: 2.4rem; padding-block: 2.4rem; }
+  .name { font-size: 2.6rem; }
+  .title { font-size: 1.8rem; }
+  .text { font-size: 1.6rem; }
+  .contain img { padding: 1.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .picture img,
+  .more svg,
+  .more,
+  .site {
+    transition: none;
+  }
+
+  .frame:hover .picture img {
+    transform: none;
+  }
+}

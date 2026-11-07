@@ -4,6 +4,7 @@ import { Footer } from "@/components/sections/Footer";
 import { Navbar } from "@/components/sections/Navbar";
 import { PillButton } from "@/components/ui/PillButton";
 import { Reveal } from "@/components/ui/Reveal";
+import flow from "@/components/ui/SectionFlow.module.css";
 import { tajawal } from "@/lib/fonts";
 import styles from "./page.module.css";
 
@@ -99,7 +100,7 @@ export default function VenturesPage() {
   return (
     <>
       <Navbar variant="slim" />
-      <main className={`${styles.main} ${tajawal.variable}`}>
+      <main className={`${flow.flow} ${styles.main} ${tajawal.variable}`}>
         <section className={styles.hero} aria-labelledby="ventures-heading">
           <div className={styles.heroCopy}>
             <h1 id="ventures-heading" className={styles.heroTitle}>

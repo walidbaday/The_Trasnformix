@@ -1,0 +1,123 @@
+/* Figma 4431:12464 — Transformix GBS. The shared parts live in
+   components/services/ServiceKit.module.css; these are the page's own. */
+
+/* Who it's for: the cards stand 340px tall, their call under the text. */
+.audience {
+  min-height: 34rem;
+}
+
+/* The services lead runs on a narrower, centred measure. */
+.services > :first-child > div {
+  max-width: 101.4rem;
+}
+
+/* ---- Ways of working (Figma 4431:12652) ------------------------------------- */
+.models {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.model {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.4rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+/* ---- Dedicated team or managed service (Figma 4431:12674) ------------------- */
+.compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.2rem;
+}
+
+.compareCard {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.compareRows {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  margin: 0;
+}
+
+.compareRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-top: 2rem;
+  border-top: 0.1rem solid var(--line);
+}
+
+.compareRow dd {
+  margin: 0;
+}
+
+.compareLabel {
+  font-family: var(--tajawal);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+}
+
+/* ---- Related insight (Figma 4431:12930) -------------------------------------- */
+.insight {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.readMore {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.readMore:hover {
+  text-decoration-thickness: 0.2rem;
+}
+
+@media (max-width: 1024px) {
+  .models {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .audience {
+    min-height: 0;
+  }
+
+  .compare {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .models {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .compareCard,
+  .insight {
+    padding: 2.4rem;
+    border-radius: 1.6rem;
+  }
+}

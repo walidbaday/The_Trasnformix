@@ -26,13 +26,9 @@ export function adjustEnglishSource(file, code) {
   if (file === "src/components/contact/ContactModal.tsx") {
     code = code.replace('pathname === "/"', 'pathname === "/en"').replace('router.push("/")', 'router.push("/en")');
   }
-  if (file === "src/components/sections/Hero.module.css") {
-    code += `\n/* English copy flows naturally while preserving the video dimensions. */
-@media (min-width: 1025px) {
-  .hero { height: auto; padding-top: 10.7rem; }
-  .content { position: relative; top: auto; }
-  .video { position: relative; left: auto; top: auto; transform: none; margin: 8rem auto 0; }
-}\n`;
+  if (file === "src/components/community/CommunityPages.module.css") {
+    code += '\n/* The Arabic pages print each English name under its Arabic one; in English that only repeats the label. */\n.cardEn, .moreEn { display: none; }\n';
+    code += '\n/* The banner copy sits on the left in English, so the photo and its shade turn to keep the dark side behind it. */\n.bannerMedia { transform: scaleX(-1); }\n';
   }
   if (file === "src/components/sections/StatsPanel.module.css") code += '\n.cardTitle, .dark .cardTitle { white-space: normal; }\n';
   if (file === "src/components/sections/Footer.module.css") code += '\n.footer .tagline { max-width: 100%; height: auto; min-height: 2.6rem; white-space: normal; }\n';
@@ -47,15 +43,54 @@ export function adjustEnglishSource(file, code) {
   if (file === "src/components/sections/about/AboutVision.module.css") code += '\n.title { white-space: normal; }\n@media (min-width: 1025px) { .title { font-size: 3.2rem; } }\n';
   if (file === "src/components/sections/about/AboutPartners.module.css") code += '\n.text { height: auto; }\n';
   if (file === "src/components/sections/Navbar.module.css") {
-    code += `\n@media (min-width: 1025px) {
-  .inner { gap: 1.2rem; }
-  .list { gap: 24px; }
-  .link { font-size: 1.6rem; }
-  .cta { --pill-size: 1.4rem; --pill-gap: 1.4rem; }
+    code += `\n/* The sidebar arrow points into the columns, which now sit to its right. */
+.tabArrow { transform: scaleX(-1); }
+/* The Latin labels run wider than the Arabic ones; this keeps the bar on one
+   line at 1440 and below. */
+@media (min-width: 1025px) {
+  .link, .searchButton { font-size: 1.6rem; }
+  .searchButton { gap: 1.2rem; }
+  .inner {
+    --nav-gap: clamp(1.6rem, calc(1.6rem + (100vw - 1440px) * 0.046), 3.7rem);
+    --item-pad: clamp(1.4rem, calc(1.4rem + (100vw - 1440px) * 0.0131), 2rem);
+  }
 }
 @media (max-width: 1024px) {
   .logo, .slim .logo { right: auto; left: 3rem; }
   .burger, .slim .burger { left: auto; right: 2rem; }
+}\n`;
+  }
+  if (file === "src/app/(arabic)/careers/page.module.css") {
+    code += `\n/* The copy sits on the left in English, so the photo and its shade turn
+   to keep the dark side behind it, and the link arrows point onward. */
+.heroMedia { transform: scaleX(-1); }
+.trackArrow { transform: scaleX(-1); }
+.trackLink:hover .trackArrow { transform: scaleX(-1) translateX(-0.4rem); }\n`;
+  }
+  if (file === "src/app/(arabic)/contact/page.module.css") {
+    code += `\n/* The copy sits on the left in English, so the photo and its shade turn
+   to keep the dark side behind it, and the card arrows point onward. */
+.heroMedia { transform: scaleX(-1); }
+.arrow { transform: scaleX(-1); }
+.cardLink:hover .arrow { transform: scaleX(-1) translateX(-0.4rem); }\n`;
+  }
+  if (file === "src/components/services/ServiceKit.module.css") {
+    code += `\n/* The copy sits on the left in English, so the photo and its shade turn
+   to keep the dark side behind it, and the card arrows point onward. */
+.heroMedia { transform: scaleX(-1); }
+.arrow { transform: scaleX(-1); }
+.cardLink:hover .arrow { transform: scaleX(-1) translateX(-0.4rem); }\n`;
+  }
+  if (file === "src/app/(arabic)/community/news/page.module.css") {
+    code += '\n/* The copy sits on the left in English, so the photo and its shade turn with it. */\n.heroMedia { transform: scaleX(-1); }\n';
+  }
+  if (file === "src/app/(arabic)/services/software-engineering/page.module.css") {
+    code += '\n/* The copy sits on the left in English, so the photo and its shade turn with it. */\n.heroMedia { transform: scaleX(-1); }\n';
+  }
+  if (file === "src/app/(arabic)/services/ecommerce/page.module.css") {
+    code += `\n/* The copy sits on the left in English, so the shade darkens toward it. */
+@media (min-width: 641px) {
+  .heroMedia::after { background: linear-gradient(270deg, rgba(6, 15, 33, 0.06), rgba(6, 15, 33, 0.78) 47%, rgba(6, 15, 33, 0.97)); }
 }\n`;
   }
   if (file === "src/components/sections/about/AboutProcess.module.css") {

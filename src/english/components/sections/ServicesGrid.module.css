@@ -18,12 +18,14 @@
 }
 
 .head { margin-bottom: 56px; text-align: center; }
+.label { margin-bottom: 12px; color: var(--primary); font-size: 17px; font-weight: 700; }
 .head h2 { font-size: clamp(38px, 3.4vw, 55px); font-weight: 700; line-height: 1.25; letter-spacing: -1.5px; }
-.lead { max-width: 550px; margin: 18px auto 0; color: #5c6878; font-size: 18px; line-height: 1.75; }
+.lead { max-width: 640px; margin: 18px auto 0; color: #5c6878; font-size: 18px; line-height: 1.75; }
 .aside { position: sticky; top: 130px; }
-.art { position: relative; aspect-ratio: 1.2; overflow: hidden; }
+/* The client's photos are 16:9 scenes, framed edge to edge. */
+.art { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 20px; background: #0e1a2e; }
 .image { position: absolute; inset: 0; }
-.image img { object-fit: contain; mix-blend-mode: multiply; }
+.image img { object-fit: cover; }
 
 .list { list-style: none; margin: 0; padding: 0; }
 .item { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 25px; min-height: 390px; padding-bottom: 54px; }
@@ -73,6 +75,29 @@
 .link > span { color: #05b8d5; font: 20px Arial, sans-serif; }
 .mobileImage { display: none; }
 
+.listColumn { min-width: 0; }
+
+/* Lined up with the copy, past the 42px rail and its 25px gap. */
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  margin-top: 40px;
+  margin-inline-start: 67px;
+  padding: 10px 26px;
+  border: 1px solid #dce2ea;
+  border-radius: 999px;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.more:hover { border-color: var(--primary); background: var(--primary); color: #fff; }
+.more:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.more svg { width: 18px; height: 18px; transition: transform var(--dur) var(--ease-out); }
+.more[aria-expanded="true"] svg { transform: rotate(180deg); }
+
 @media (max-width: 900px) {
   .section { padding-block: 80px; }
   .layout { grid-template-columns: minmax(0, 1fr); gap: 45px; }
@@ -82,7 +107,7 @@
   .item:last-child { min-height: 0; }
   .copy { padding-top: 2px; }
   .copy > p { max-width: 600px; }
-  .mobileImage { display: block; width: 320px; height: 210px; object-fit: contain; mix-blend-mode: multiply; margin-block: 20px 10px; }
+  .mobileImage { display: block; width: 100%; max-width: 520px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 16px; margin-block: 24px 10px; }
 }
 
 @media (max-width: 640px) {
@@ -94,11 +119,12 @@
   .item { grid-template-columns: 32px minmax(0, 1fr); gap: 17px; padding-bottom: 30px; }
   .rail > span { width: 32px; height: 32px; font-size: 10px; }
   .rail::before, .rail > div { top: 32px; inset-inline-start: 15px; }
+  .more { margin-top: 30px; margin-inline-start: 49px; }
   .copy h3 { font-size: 26px; margin-bottom: 16px; }
   .copy > p { font-size: 16px; }
-  .mobileImage { width: 100%; max-width: 350px; height: auto; aspect-ratio: 1.5; margin-block: 20px; }
+  .mobileImage { border-radius: 12px; margin-block: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rail > span, .link { transition: none; }
+  .rail > span, .link, .more, .more svg { transition: none; }
 }

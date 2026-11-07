@@ -1,0 +1,404 @@
+/* Figma 4334:4672 — the careers page: a photo hero, the six paths on a
+   two-column grid, and what each path adds to the application. The page's
+   own navbar and footer are the site's. */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---- Hero (Figma 4334:4694) ------------------------------------------------ */
+.hero {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 48.5rem;
+  overflow: hidden;
+  background: var(--primary);
+  /* The copy keeps the artboard's 111px right margin, inside a centred
+     1440 frame on wider screens. */
+  padding-inline-start: max(11.1rem, calc(50% - 60.9rem));
+}
+
+.heroMedia {
+  position: absolute;
+  inset: 0;
+}
+
+.heroMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(25, 61, 138, 0.28) 9.6165%,
+    rgba(28, 68, 153, 0.17) 25.481%,
+    rgba(21, 50, 113, 0.4) 38.943%,
+    rgb(29, 53, 105) 57.211%,
+    rgb(9, 22, 50) 98.556%
+  );
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: left center;
+}
+
+.heroCopy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 60.8rem;
+  max-width: 100%;
+  padding-block: 10.4rem 5.2rem;
+  color: var(--text-inverse);
+}
+
+.heroTitle {
+  font-size: 4.8rem;
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.heroText {
+  margin-top: 2.6rem;
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
+
+.heroText + * {
+  margin-top: 3.2rem;
+}
+
+.heroButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 5.7rem;
+  border-radius: 4.4rem;
+  background: var(--bg-main);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.9;
+  color: var(--primary);
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.heroButton:hover {
+  background: var(--blue-light);
+  box-shadow: 0 1.2rem 2.4rem rgba(5, 13, 31, 0.28);
+  transform: translateY(-0.2rem);
+}
+
+.heroButton:focus-visible {
+  outline: 0.2rem solid var(--text-inverse);
+  outline-offset: 0.3rem;
+}
+
+/* ---- Career tracks (Figma 4334:4695) --------------------------------------- */
+.tracks,
+.requirements {
+  width: 123.8rem;
+  max-width: calc(100% - 2 * var(--gutter));
+}
+
+.tracks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 8rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.trackGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+  width: 100%;
+  margin: 4.8rem 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: start;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  min-height: 33.6rem;
+  padding: 2.4rem;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 1.6rem;
+  background: var(--bg-main);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.track:hover,
+.track:focus-within {
+  border-color: rgba(28, 68, 153, 0.35);
+  box-shadow: 0 1.6rem 3.2rem rgba(28, 68, 153, 0.08);
+}
+
+.trackHead {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  width: 100%;
+}
+
+.trackIcon {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+}
+
+.trackTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.trackText {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.trackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.9;
+  color: var(--primary);
+  text-underline-offset: 0.4rem;
+}
+
+.trackLink:hover {
+  text-decoration: underline;
+}
+
+.trackLink:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.4rem;
+  border-radius: 0.4rem;
+}
+
+.trackArrow {
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.trackLink:hover .trackArrow {
+  transform: translateX(-0.4rem);
+}
+
+/* ---- Additional fields by path (Figma 4352:5547) --------------------------- */
+.requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding-bottom: 12.6rem;
+}
+
+.requirementsTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.8;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.requirementGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.requirement {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-height: 16.8rem;
+  padding: 2.4rem;
+  border: 0.1rem solid #efefef;
+  border-radius: 0.8rem;
+  background: var(--bg-card);
+}
+
+.requirementTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.8;
+  color: var(--primary);
+}
+
+.requirementText,
+.note {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* The button sits at the far (left) end, as drawn. */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26rem;
+  height: 6.4rem;
+  padding: 0 3.2rem;
+  border-radius: 4.7rem;
+  background: var(--primary);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.9;
+  color: var(--text-inverse);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.submit:hover {
+  background: var(--blue-dark);
+  box-shadow: 0 0.8rem 2.4rem rgba(28, 68, 153, 0.25);
+}
+
+.submit:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    min-height: 0;
+    padding-inline: var(--gutter);
+  }
+
+  .heroCopy {
+    padding-block: 8rem 6.4rem;
+  }
+
+  .heroTitle {
+    font-size: 4rem;
+  }
+
+  .tracks {
+    padding-block: 6.4rem;
+  }
+
+  .track {
+    min-height: 0;
+  }
+
+  .requirements {
+    padding-bottom: 8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  /* The copy covers the photo here, so the shade runs top to bottom. */
+  .heroMedia::after {
+    background: linear-gradient(180deg, rgba(9, 22, 50, 0.55), rgba(9, 22, 50, 0.92));
+  }
+
+  .heroCopy {
+    padding-block: 5.6rem 4.8rem;
+  }
+
+  .heroTitle {
+    font-size: 3.2rem;
+  }
+
+  .heroText {
+    margin-top: 1.6rem;
+    font-size: 1.6rem;
+  }
+
+  .heroText + * {
+    margin-top: 2.4rem;
+  }
+
+  .heroButton {
+    padding-inline: 4rem;
+  }
+
+  .tracks {
+    padding-block: 5.6rem;
+  }
+
+  .title {
+    font-size: 2.6rem;
+  }
+
+  .subtitle {
+    font-size: 1.6rem;
+  }
+
+  .trackGrid,
+  .requirementGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+
+  .trackGrid {
+    margin-top: 3.2rem;
+  }
+
+  .trackTitle {
+    font-size: 2rem;
+  }
+
+  .requirement {
+    min-height: 0;
+  }
+
+  .requirementsTitle {
+    font-size: 2.2rem;
+  }
+
+  .requirements {
+    padding-bottom: 6.4rem;
+  }
+
+  .submit {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* The copy sits on the left in English, so the photo and its shade turn
+   to keep the dark side behind it, and the link arrows point onward. */
+.heroMedia { transform: scaleX(-1); }
+.trackArrow { transform: scaleX(-1); }
+.trackLink:hover .trackArrow { transform: scaleX(-1) translateX(-0.4rem); }

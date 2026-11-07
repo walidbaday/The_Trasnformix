@@ -1,0 +1,7 @@
+/* Apply before hydration too, so reduced-motion visitors never see a lift. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

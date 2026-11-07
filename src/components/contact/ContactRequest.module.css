@@ -1,0 +1,227 @@
+/* The /contact page's unified request (Figma 4431:12256): a white 24px-radius
+   card, the request types as a two-column grid of options, the design
+   system's fields at 14px (ApplicationForm.module.css .compact) and the
+   primary pill. */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2.4rem;
+  padding: 3.2rem;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  /* Clears the slim navbar when a call scrolls the form into view. */
+  scroll-margin-top: 10rem;
+}
+
+/* ---- Request types ------------------------------------------------------- */
+.types {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.typesTitle {
+  margin-bottom: 2.4rem;
+  padding: 0;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.typeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.type {
+  position: relative;
+  display: flex;
+}
+
+.type input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.typeBox {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: 1.6rem;
+  min-height: 6.8rem;
+  padding: 1.5rem;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 1.2rem;
+  background: var(--bg-main);
+  font-size: 1.4rem;
+  line-height: 1.9;
+  color: var(--primary);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.check {
+  display: none;
+  flex-shrink: 0;
+  margin-top: 0.3rem;
+}
+
+.type:hover .typeBox {
+  border-color: var(--primary);
+}
+
+.type input:checked + .typeBox {
+  background: var(--blue-light);
+}
+
+.type input:checked + .typeBox .check {
+  display: block;
+}
+
+.type input:focus-visible + .typeBox {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.2rem;
+}
+
+/* ---- Fields, the bot trap and the send ------------------------------------ */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.submitError {
+  font-size: 1.4rem;
+  color: #d92d20;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2.3rem;
+  border: 0.1rem solid var(--primary);
+  border-radius: 4.4rem;
+  background: var(--primary);
+  font: inherit;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--text-inverse);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.submit:hover {
+  background: var(--blue-dark);
+  box-shadow: 0 1.2rem 2.4rem rgba(28, 68, 153, 0.24);
+  transform: translateY(-0.2rem);
+}
+
+.submit:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+.submit:disabled {
+  cursor: progress;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* ---- Sent ------------------------------------------------------------------ */
+.done {
+  justify-content: center;
+  align-items: center;
+  min-height: 40rem;
+  text-align: center;
+}
+
+.doneTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.doneText {
+  max-width: 64rem;
+  font-family: var(--font-kufi), sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.again {
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submit:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    gap: 2rem;
+    padding: 2.4rem 1.6rem;
+    border-radius: 1.6rem;
+  }
+
+  .typesTitle {
+    margin-bottom: 1.6rem;
+    font-size: 2rem;
+  }
+
+  .typeGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .typeBox {
+    min-height: 0;
+  }
+
+  .fields {
+    gap: 2rem;
+  }
+
+  .actions .submit {
+    width: 100%;
+  }
+}

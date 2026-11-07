@@ -1,0 +1,840 @@
+/* The TX Community pages take the careers page's rhythm and type scale:
+   centred intros, 16px-radius cards and a pale band for each page's form. */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rem;
+  padding-bottom: 12rem;
+}
+
+/* The sticky bar would cover the top of a section reached by an anchor. */
+.activities,
+.formBand {
+  scroll-margin-top: 10rem;
+}
+
+.en {
+  font-family: var(--font-inter), "Segoe UI", Arial, sans-serif;
+}
+
+.eyebrow {
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1f1f1f;
+}
+
+/* ---- Hero: the /contact band with its two circuit patterns --------------- */
+.hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-main);
+}
+
+.pattern {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+.patternLeft {
+  left: 0;
+  top: 0;
+  width: 54.9rem;
+  height: 30.9rem;
+}
+
+.patternRight {
+  right: 0;
+  bottom: 0;
+  width: 43.6rem;
+  height: 22.8rem;
+}
+
+.heroCopy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 96rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  margin-inline: auto;
+  padding-block: 9.6rem 8rem;
+  text-align: center;
+}
+
+.crumbs {
+  margin-bottom: 2.4rem;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crumbs li + li::before {
+  content: "/";
+  margin-inline-end: 0.8rem;
+  color: var(--blue-light-active);
+}
+
+.crumbs a {
+  font-family: var(--font-inter), "Segoe UI", Arial, sans-serif;
+  color: var(--primary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.crumbs a:hover {
+  color: var(--blue-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+}
+
+.heroTitle {
+  margin-top: 1.6rem;
+  font-size: 4.8rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-wrap: balance;
+  color: #142441;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.2rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.6rem;
+  margin-top: 4rem;
+}
+
+/* The ventures hero pills: 56 high, the primary one without its arrow disc. */
+.heroActions .primary {
+  --pill-w: auto;
+  --pill-pad: 0 3.2rem;
+  --pill-size: 1.8rem;
+  --pill-lh: normal;
+  height: 5.6rem;
+  box-shadow:
+    0 1rem 1.5rem rgba(63, 169, 245, 0.12),
+    0 0.4rem 0.6rem rgba(140, 199, 242, 0.08);
+}
+
+.heroActions .primary:hover,
+.heroActions .primary:focus-visible {
+  box-shadow: 0 0.8rem 2.4rem rgba(28, 68, 153, 0.3);
+}
+
+.heroActions .primary > [aria-hidden="true"] {
+  display: none;
+}
+
+.heroActions .secondary {
+  --pill-w: auto;
+  height: 5.6rem;
+  padding: 0 3.2rem;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(0.8rem);
+  backdrop-filter: blur(0.8rem);
+}
+
+.heroActions .secondary:hover,
+.heroActions .secondary:focus-visible {
+  background-color: rgba(28, 68, 153, 0.06);
+}
+
+.heroActions .secondary > span {
+  font-weight: 400;
+}
+
+/* ---- Banner hero (Figma 4378:3200): a photo under a blue shade, with the
+   copy on its dark end and the artboard's 111px right margin, inside a
+   centred 1440 frame on wider screens. ------------------------------------ */
+.banner {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 54.8rem;
+  overflow: hidden;
+  background: var(--primary);
+  padding-inline-start: max(11.1rem, calc(50% - 60.9rem));
+}
+
+.bannerMedia {
+  position: absolute;
+  inset: 0;
+}
+
+.bannerMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(25, 61, 138, 0.28) 9.6165%,
+    rgba(28, 68, 153, 0.17) 25.481%,
+    rgba(21, 50, 113, 0.73) 38.943%,
+    rgba(29, 53, 105, 0.9) 57.211%,
+    rgb(9, 22, 50) 98.556%
+  );
+}
+
+.bannerImage {
+  object-fit: cover;
+}
+
+.bannerCopy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 60.8rem;
+  max-width: 100%;
+  padding-block: 10.4rem 6rem;
+  color: var(--text-inverse);
+}
+
+.bannerTitle {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.bannerTitleWide {
+  margin-inline-end: -3.5rem;
+}
+
+.bannerText {
+  margin-top: 2.6rem;
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
+
+.bannerText + * {
+  margin-top: 3.2rem;
+}
+
+.bannerButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 5.7rem;
+  border-radius: 4.4rem;
+  background: var(--bg-main);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.9;
+  color: var(--primary);
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.bannerButton:hover {
+  background: var(--blue-light);
+  box-shadow: 0 1.2rem 2.4rem rgba(5, 13, 31, 0.28);
+  transform: translateY(-0.2rem);
+}
+
+.bannerButton:focus-visible {
+  outline: 0.2rem solid var(--text-inverse);
+  outline-offset: 0.3rem;
+}
+
+/* ---- Hub: a card per activity --------------------------------------------- */
+.activities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 123.2rem;
+  max-width: calc(100% - 2 * var(--gutter));
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.4rem;
+  width: 100%;
+  margin: 5.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2.8rem 2.4rem;
+  border: 0.1rem solid rgba(89, 90, 92, 0.12);
+  border-radius: 1.6rem;
+  background: var(--bg-main);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.card:hover {
+  border-color: rgba(28, 68, 153, 0.35);
+  box-shadow: 0 1.6rem 3.2rem rgba(28, 68, 153, 0.08);
+}
+
+.cardNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  margin-bottom: 2.4rem;
+  border-radius: 50%;
+  background: var(--blue-light);
+  font: 700 1.6rem/1 var(--font-inter), Arial, sans-serif;
+  color: var(--primary);
+}
+
+.cardTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.cardTitle a {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.cardTitle a:hover {
+  color: var(--primary);
+}
+
+.cardEn {
+  margin-top: 0.4rem;
+  font-size: 1.3rem;
+  color: var(--primary);
+}
+
+.cardText {
+  margin-top: 1.6rem;
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.cardLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 2rem;
+  margin-top: auto;
+  padding-top: 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.cardExplore {
+  padding: 0.6rem 1.6rem;
+  border-radius: 999.9rem;
+  background: var(--blue-light);
+  color: var(--primary);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.cardExplore:hover,
+.cardExplore:focus-visible {
+  background: var(--blue-light-active);
+}
+
+.cardCta {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.cardCta:hover {
+  color: var(--blue-dark);
+}
+
+/* Joining closes the hub on the /contact company card's gradient. */
+.joinBand {
+  width: 123.2rem;
+  max-width: calc(100% - 2 * var(--gutter));
+}
+
+.joinPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6.4rem 4rem;
+  border-radius: 1.6rem;
+  background: linear-gradient(to left, #0c75d2, #001e4a);
+  color: var(--text-inverse);
+  text-align: center;
+}
+
+.joinTitle {
+  margin-top: 1.2rem;
+  font-size: 3.6rem;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.joinText {
+  max-width: 84rem;
+  margin-top: 1.6rem;
+  font-size: 1.8rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.joinActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.6rem;
+  margin-top: 3.2rem;
+}
+
+/* ---- Activity page: its name beside the sheet's text ---------------------- */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 36fr) minmax(0, 84fr);
+  gap: 4rem;
+  width: 123.2rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  padding-top: 4.8rem;
+  border-top: 0.1rem solid rgba(89, 90, 92, 0.12);
+}
+
+.aboutHead {
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutTitle {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #1f1f1f;
+}
+
+.aboutHead .cardEn {
+  font-size: 1.4rem;
+}
+
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.2rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.topics {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 123.2rem;
+  max-width: calc(100% - 2 * var(--gutter));
+}
+
+.topics .title {
+  font-size: 3.2rem;
+}
+
+.topicGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.4rem;
+  width: 100%;
+  margin: 4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The ventures step cards: primary ground with a soft sheen. */
+.topic {
+  display: flex;
+  flex-direction: column;
+  padding: 3.2rem;
+  border-radius: 1.6rem;
+  background: var(--primary);
+  background-image: linear-gradient(129.75deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
+  color: var(--text-inverse);
+}
+
+.topicAudience {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.topicText {
+  margin-top: 1.2rem;
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.note {
+  width: 100%;
+  margin-top: 3.2rem;
+  padding: 2.4rem;
+  border-inline-start: 0.4rem solid #f2b23a;
+  border-radius: 1.2rem;
+  background: var(--yellow-light);
+  font-size: 1.5rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.noteTitle {
+  margin-bottom: 0.8rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ---- Form band ------------------------------------------------------------ */
+.formBand {
+  width: 100%;
+  padding-block: 10.4rem;
+  background: #f1f5f9;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 42fr) minmax(0, 78fr);
+  align-items: start;
+  gap: 4rem;
+  width: 123.2rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.formIntro {
+  position: sticky;
+  top: 12rem;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 3.2rem;
+  border-radius: 1.6rem;
+  background: linear-gradient(to left, #0c75d2, #001e4a);
+  color: var(--text-inverse);
+}
+
+.formEn {
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9cc8f5;
+}
+
+.formTitle {
+  margin-top: 0.8rem;
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.formText {
+  margin-top: 1.6rem;
+  font-size: 1.6rem;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.divider {
+  height: 0.1rem;
+  margin-block: 2.8rem;
+  background: rgba(228, 221, 237, 0.4);
+}
+
+.formNote {
+  font-size: 1.4rem;
+  line-height: 2;
+  color: #dadada;
+}
+
+.formSlot {
+  min-width: 0;
+}
+
+/* ---- The other activities ------------------------------------------------- */
+.more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 123.2rem;
+  max-width: calc(100% - 2 * var(--gutter));
+}
+
+.moreTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.moreGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.6rem;
+  width: 100%;
+  margin: 3.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.moreLink {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  height: 100%;
+  padding: 2rem 2.4rem;
+  border: 0.1rem solid rgba(89, 90, 92, 0.12);
+  border-radius: 1.2rem;
+  transition:
+    border-color var(--dur) var(--ease-out),
+    background-color var(--dur) var(--ease-out);
+}
+
+.moreLink:hover,
+.moreLink:focus-visible {
+  border-color: rgba(28, 68, 153, 0.35);
+  background: var(--blue-light);
+}
+
+.moreLabel {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.moreEn {
+  font-size: 1.3rem;
+  color: var(--primary);
+}
+
+@media (max-width: 1024px) {
+  .main {
+    gap: 8rem;
+    padding-bottom: 8rem;
+  }
+
+  .patternLeft {
+    width: 36.6rem;
+    height: 20.6rem;
+  }
+
+  .patternRight {
+    width: 29rem;
+    height: 15.2rem;
+  }
+
+  .heroCopy {
+    padding-block: 7.2rem 6.4rem;
+  }
+
+  .heroTitle {
+    font-size: 4rem;
+  }
+
+  .heroText,
+  .prose {
+    font-size: 2rem;
+  }
+
+  /* The copy spans most of the width here, so the shade covers the photo
+     from top to bottom. */
+  .banner {
+    min-height: 0;
+    padding-inline: var(--gutter);
+  }
+
+  .bannerMedia::after {
+    background: linear-gradient(180deg, rgba(9, 22, 50, 0.55), rgba(9, 22, 50, 0.92));
+  }
+
+  .bannerCopy {
+    padding-block: 8rem 6.4rem;
+  }
+
+  .bannerTitle {
+    font-size: 3.6rem;
+  }
+
+  .bannerTitleWide {
+    margin-inline-end: 0;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .cards,
+  .topicGrid,
+  .moreGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards {
+    margin-top: 4rem;
+  }
+
+  .about {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+
+  .formBand {
+    padding-block: 6.4rem;
+  }
+
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+
+  .formIntro {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .main {
+    gap: 6.4rem;
+    padding-bottom: 6.4rem;
+  }
+
+  .patternLeft {
+    width: 24.4rem;
+    height: 13.7rem;
+  }
+
+  .patternRight {
+    width: 19.4rem;
+    height: 10.1rem;
+  }
+
+  .heroCopy {
+    padding-block: 5.6rem 4.8rem;
+  }
+
+  .heroTitle {
+    font-size: 3rem;
+  }
+
+  .heroText,
+  .prose {
+    font-size: 1.7rem;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .bannerCopy {
+    padding-block: 5.6rem 4.8rem;
+  }
+
+  .bannerTitle {
+    font-size: 2.8rem;
+  }
+
+  .bannerText {
+    margin-top: 1.6rem;
+    font-size: 1.6rem;
+  }
+
+  .bannerText + * {
+    margin-top: 2.4rem;
+  }
+
+  .bannerButton {
+    padding-inline: 4rem;
+  }
+
+  .title,
+  .topics .title {
+    font-size: 2.6rem;
+  }
+
+  .cards,
+  .topicGrid,
+  .moreGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+
+  .aboutTitle {
+    font-size: 2.6rem;
+  }
+
+  .topic {
+    padding: 2.4rem;
+  }
+
+  .joinPanel {
+    padding: 4.8rem 2.4rem;
+  }
+
+  .joinTitle {
+    font-size: 2.6rem;
+  }
+
+  .joinActions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .formBand {
+    padding-block: 4.8rem;
+  }
+
+  .formIntro {
+    padding: 3.2rem 2.4rem;
+  }
+
+  .formTitle {
+    font-size: 2.6rem;
+  }
+
+  .moreTitle {
+    font-size: 2.2rem;
+  }
+}

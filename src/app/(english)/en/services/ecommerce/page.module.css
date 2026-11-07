@@ -1,0 +1,593 @@
+/* Figma 4354:4739 — e-commerce and multi-vendor marketplaces: a photo hero,
+   the five services, the two business models, the four steps and a closing
+   call. Headings are set in Tajawal, body copy in Noto Kufi Arabic. */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inner {
+  width: 124.8rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.title,
+.heroTitle,
+.introTitle,
+.ctaTitle {
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.title,
+.introTitle {
+  color: var(--text-primary);
+}
+
+.subtitle {
+  margin-top: 1.4rem;
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+/* ---- Hero (Figma 4354:4761) ------------------------------------------------ */
+.hero {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 64rem;
+  overflow: hidden;
+  background: #060f21;
+  /* The copy keeps the artboard's 96px right margin, inside a centred 1440
+     frame on wider screens. */
+  padding-inline-start: max(9.6rem, calc(50% - 62.4rem));
+}
+
+.heroMedia {
+  position: absolute;
+  inset: 0;
+}
+
+.heroMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(6, 15, 33, 0.06),
+    rgba(6, 15, 33, 0.78) 47%,
+    rgba(6, 15, 33, 0.97)
+  );
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroCopy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 66rem;
+  max-width: 100%;
+  padding-block: 4rem 7.4rem;
+  color: var(--text-inverse);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+.breadcrumb li + li::before {
+  content: "/";
+  margin-inline: 0.8rem;
+}
+
+.breadcrumb a {
+  text-underline-offset: 0.4rem;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.eyebrow {
+  margin-top: 5.8rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: #2ac0d4;
+}
+
+.heroTitle {
+  margin-top: 2rem;
+  font-size: 4.8rem;
+}
+
+.heroText {
+  width: 62rem;
+  max-width: 100%;
+  margin-top: 3.7rem;
+  font-size: 1.8rem;
+  line-height: 1.9;
+}
+
+.heroActions {
+  margin-top: 12.2rem;
+}
+
+/* The SectorButton, drawn as the artboard's 340 × 56 primary pill. */
+.heroActions .heroButton {
+  width: 34rem;
+  max-width: 100%;
+  height: 5.6rem;
+  padding: 0 2.4rem;
+  border-radius: 3.2rem;
+  background: var(--primary);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  filter: none;
+}
+
+.heroActions .heroButton:hover {
+  background: var(--blue-dark);
+  filter: drop-shadow(0 1.2rem 1.6rem rgba(5, 13, 31, 0.4));
+}
+
+.heroActions .heroButton:focus-visible,
+.ctaCard .ctaButton:focus-visible {
+  outline: 0.2rem solid var(--text-inverse);
+  outline-offset: 0.3rem;
+}
+
+/* ---- Intro (Figma 4354:4762) ----------------------------------------------- */
+.intro {
+  display: grid;
+  grid-template-columns: 46.4rem 68.8rem;
+  justify-content: space-between;
+  align-items: start;
+  width: 124.8rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  padding-block: 6.4rem 8.2rem;
+}
+
+.introText {
+  padding-top: 0.1rem;
+  font-size: 1.8rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+/* ---- Services (Figma 4354:4763) -------------------------------------------- */
+.services {
+  width: 100%;
+  padding-block: 5.4rem 7.8rem;
+  background: #f5f6f8;
+  scroll-margin-top: 6.4rem;
+}
+
+.label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--primary);
+}
+
+.label + .title {
+  margin-top: 0.9rem;
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 2.4rem;
+  margin: 3.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  min-height: 42.4rem;
+  overflow: hidden;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 1.2rem;
+  background: var(--bg-main);
+  transition: box-shadow var(--dur) var(--ease-out);
+}
+
+.service:hover {
+  box-shadow: 0 1.6rem 3.2rem rgba(28, 68, 153, 0.08);
+}
+
+.serviceWide {
+  grid-column: span 3;
+  min-height: 40rem;
+}
+
+.serviceMedia {
+  position: relative;
+  flex-shrink: 0;
+  height: 17.6rem;
+  overflow: hidden;
+}
+
+.serviceWide .serviceMedia {
+  height: 20rem;
+}
+
+.serviceImage {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.service:hover .serviceImage {
+  transform: scale(1.04);
+}
+
+.serviceBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 2.3rem 2.4rem 2.4rem;
+}
+
+.serviceTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.9;
+  color: var(--text-primary);
+}
+
+.serviceText {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+/* ---- Business models (Figma 4354:4764) ------------------------------------- */
+.models {
+  width: 100%;
+  padding-block: 6.4rem 5.6rem;
+}
+
+.modelGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+  margin: 3.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.model {
+  display: flex;
+  flex-direction: column;
+  min-height: 29rem;
+  padding: 2.4rem 3.2rem;
+  border-radius: 1.2rem;
+  background: #f5f6f8;
+  color: var(--text-primary);
+}
+
+.modelDark {
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.modelTag {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--primary);
+}
+
+.modelTitle {
+  margin-top: 1.5rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.modelText {
+  margin-top: 0.6rem;
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.modelDark .modelTag,
+.modelDark .modelText {
+  color: var(--text-inverse);
+}
+
+.modelPoints {
+  margin: 2.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.6rem;
+  line-height: 1.9;
+}
+
+/* ---- Process (Figma 4354:4765) --------------------------------------------- */
+.process {
+  width: 100%;
+  padding-block: 6.4rem 3.2rem;
+  background: #f5f6f8;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  margin: 5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  min-height: 19.2rem;
+  padding-top: 2.4rem;
+  border-top: 0.1rem solid #e5e7eb;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  line-height: 1.9;
+}
+
+.stepNumber {
+  font-size: 3.2rem;
+  color: var(--primary);
+}
+
+.stepTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.9;
+  color: var(--text-primary);
+}
+
+.stepText {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+/* ---- Closing call (Figma 4354:4766) ---------------------------------------- */
+.cta {
+  width: 124.8rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  padding-block: 4rem 3.2rem;
+}
+
+.ctaCard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4.8rem;
+  min-height: 24.8rem;
+  padding: 4rem 4.8rem;
+  border-radius: 1.6rem;
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.ctaCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  width: 69.6rem;
+  max-width: 100%;
+}
+
+.ctaText {
+  font-size: 1.8rem;
+  line-height: 1.9;
+}
+
+/* The SectorButton, drawn as the artboard's 340 × 56 white pill. */
+.ctaCard .ctaButton {
+  flex-shrink: 0;
+  align-self: center;
+  width: 34rem;
+  max-width: 100%;
+  height: 5.6rem;
+  padding: 0 2.4rem;
+  border-radius: 3.2rem;
+  background: var(--bg-main);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--primary);
+}
+
+.ctaCard .ctaButton:hover {
+  background: var(--blue-light);
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    min-height: 0;
+    padding-inline: var(--gutter);
+  }
+
+  .heroCopy {
+    padding-block: 3.2rem 6.4rem;
+  }
+
+  .eyebrow {
+    margin-top: 4.8rem;
+  }
+
+  .heroTitle {
+    font-size: 4rem;
+  }
+
+  .heroText {
+    margin-top: 2.4rem;
+  }
+
+  .heroActions {
+    margin-top: 4.8rem;
+  }
+
+  .intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+    padding-block: 5.6rem;
+  }
+
+  .services {
+    padding-block: 5.6rem 6.4rem;
+  }
+
+  .serviceGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service,
+  .serviceWide {
+    grid-column: span 1;
+    min-height: 0;
+  }
+
+  .service:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .service:last-child .serviceMedia {
+    height: 24rem;
+  }
+
+  .models {
+    padding-block: 5.6rem;
+  }
+
+  .model {
+    min-height: 0;
+  }
+
+  .process {
+    padding-block: 5.6rem 4rem;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3.2rem 2rem;
+    margin-top: 4rem;
+  }
+
+  .step {
+    min-height: 0;
+  }
+
+  .cta {
+    padding-block: 4rem 6.4rem;
+  }
+
+  .ctaCard {
+    flex-direction: column;
+    gap: 3.2rem;
+    min-height: 0;
+  }
+
+  .ctaCard .ctaButton {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  /* The copy covers the photo here, so the shade runs top to bottom. */
+  .heroMedia::after {
+    background: linear-gradient(180deg, rgba(6, 15, 33, 0.7), rgba(6, 15, 33, 0.95));
+  }
+
+  .heroTitle {
+    font-size: 3.4rem;
+  }
+
+  .heroText {
+    font-size: 1.6rem;
+  }
+
+  .heroActions,
+  .heroActions .heroButton {
+    width: 100%;
+  }
+
+  .title,
+  .introTitle,
+  .ctaTitle {
+    font-size: 2.6rem;
+  }
+
+  .introText,
+  .ctaText {
+    font-size: 1.6rem;
+  }
+
+  .serviceGrid,
+  .modelGrid,
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+
+  .serviceGrid {
+    margin-top: 3.2rem;
+  }
+
+  .service:last-child .serviceMedia,
+  .serviceMedia,
+  .serviceWide .serviceMedia {
+    height: 18rem;
+  }
+
+  .serviceBody {
+    padding: 2rem;
+  }
+
+  .serviceTitle,
+  .modelTitle {
+    font-size: 2rem;
+  }
+
+  .model {
+    padding: 2.4rem;
+  }
+
+  .steps {
+    gap: 2.4rem;
+  }
+
+  .ctaCard {
+    padding: 3.2rem 2.4rem;
+  }
+
+  .ctaCard .ctaButton {
+    width: 100%;
+    white-space: normal;
+  }
+}
+
+/* The copy sits on the left in English, so the shade darkens toward it. */
+@media (min-width: 641px) {
+  .heroMedia::after { background: linear-gradient(270deg, rgba(6, 15, 33, 0.06), rgba(6, 15, 33, 0.78) 47%, rgba(6, 15, 33, 0.97)); }
+}

@@ -1,0 +1,444 @@
+/* The partnerships modal sits in the contact modal's frame
+   (ContactModal.module.css) and widens to suit each step: the six cards, the
+   two-column form, then the review. Its fields are the careers forms'
+   (careers/ApplicationForm.module.css), set a little tighter. */
+
+.frame.choose {
+  width: 112rem;
+}
+
+.frame.form {
+  width: 96rem;
+}
+
+.frame.review {
+  width: 80rem;
+}
+
+/* ---- Step indicator ---------------------------------------------------- */
+
+/* Centred, so it clears the close button in either direction. */
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 2.4rem 8rem 0;
+  list-style: none;
+}
+
+.stepItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  height: 3.6rem;
+  padding: 0 1.4rem 0 1.6rem;
+  border-radius: 999.9rem;
+  background: #f3f4f6;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #6b7280;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--bg-main);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.stepPast {
+  background: var(--blue-light);
+  color: var(--primary);
+}
+
+.stepNow {
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.stepNow .stepNumber {
+  color: var(--primary);
+}
+
+/* ---- Shared step layout ------------------------------------------------- */
+
+.body {
+  gap: 2.4rem;
+  padding: 3.2rem 4rem 4rem;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.eyebrow {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #142441;
+}
+
+.text {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* The modal's arrow points along the reading direction in either language. */
+.arrow:dir(ltr) {
+  transform: none;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 5.7rem;
+  padding: 0 3.2rem;
+  border: 0.1rem solid #dce3ee;
+  border-radius: 1.2rem;
+  background: var(--bg-main);
+  font-size: 1.8rem;
+  color: var(--primary);
+  white-space: nowrap;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.secondary:hover {
+  border-color: var(--primary);
+  background: var(--menu-hover);
+}
+
+.submitError {
+  font-size: 1.4rem;
+  color: #d92d20;
+}
+
+/* ---- Step 1: the six paths ---------------------------------------------- */
+
+.paths {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.path {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 2.4rem;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 1.6rem;
+  background: var(--bg-main);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.path:hover {
+  border-color: var(--primary);
+  box-shadow: 0 1.2rem 3.2rem rgba(28, 68, 153, 0.12);
+  transform: translateY(-0.2rem);
+}
+
+.path:has(.pathCta:focus-visible) {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.2rem;
+}
+
+/* The path chosen last time, when coming back to change it. */
+.pathPicked {
+  border-color: var(--primary);
+  background: var(--menu-hover);
+}
+
+.number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4rem;
+  height: 2.8rem;
+  margin-bottom: 0.6rem;
+  padding: 0 1rem;
+  border-radius: 999.9rem;
+  background: var(--blue-light);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.pathTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #142441;
+}
+
+.pathEn {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+
+.pathText {
+  flex: 1;
+  margin-top: 0.4rem;
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.pathCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+/* Stretched over the card, so a click anywhere on it picks the path. */
+.pathCta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1.6rem;
+}
+
+.pathCta:focus-visible {
+  outline: none;
+}
+
+.pathCta .arrow {
+  width: 1.2rem;
+  height: 1.4rem;
+  transition: translate var(--dur) var(--ease-out);
+}
+
+.path:hover .pathCta .arrow {
+  translate: -0.3rem 0;
+}
+
+.path:hover .pathCta .arrow:dir(ltr) {
+  translate: 0.3rem 0;
+}
+
+/* ---- Step 2: the form --------------------------------------------------- */
+
+/* Which path the form belongs to: the line under the title that changes with
+   the card chosen. */
+.chosen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.2rem;
+  margin-top: -1.2rem;
+  padding: 1.2rem 1.6rem;
+  border-inline-start: 0.3rem solid var(--primary);
+  border-radius: 0.8rem;
+  background: var(--menu-hover);
+}
+
+.chosenLabel {
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+}
+
+.chosenName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #142441;
+}
+
+.requiredNote {
+  margin-top: -1.2rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.fields > div {
+  gap: 1.6rem 2rem;
+}
+
+.fields input,
+.fields select {
+  min-height: 4.8rem;
+  padding-block: 1.1rem;
+}
+
+.fields textarea {
+  height: 10.4rem;
+  min-height: 10.4rem;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-top: 2.4rem;
+  border-top: 0.1rem solid #e5e7eb;
+}
+
+.footer > :first-child {
+  flex: 1 1 32rem;
+}
+
+/* Out of sight and out of the tab order; a filled one marks a bot. */
+.trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- Step 3: review ----------------------------------------------------- */
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 3.2rem;
+  margin: 0;
+  padding: 0.8rem 2.4rem;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 1.6rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  padding-block: 1.4rem;
+  border-bottom: 0.1rem solid #eef0f4;
+}
+
+.rowWide {
+  grid-column: 1 / -1;
+}
+
+.summary > .row:last-child {
+  border-bottom: 0;
+}
+
+.row dt {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.row dd {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+/* ---- Smaller screens ----------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .paths {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .steps {
+    justify-content: flex-start;
+    padding: 6rem 2.4rem 0;
+  }
+
+  .stepItem {
+    height: 3.2rem;
+    padding-inline: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .body {
+    gap: 2rem;
+    padding: 2.4rem 2.4rem 3.2rem;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .text {
+    font-size: 1.4rem;
+  }
+
+  .paths {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.2rem;
+  }
+
+  .path {
+    padding: 2rem;
+  }
+
+  .summary {
+    grid-template-columns: minmax(0, 1fr);
+    padding-inline: 1.6rem;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .secondary {
+    width: 100%;
+  }
+}

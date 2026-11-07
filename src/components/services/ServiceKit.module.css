@@ -1,0 +1,562 @@
+/* The service pages' shared parts (Figma 4431:12464, 4431:12992, 4365:10797).
+   Tajawal sets the headings, cards and pills; the body copy keeps the site's
+   Noto Kufi; the Latin labels are Plus Jakarta Sans. Content sits on the
+   1240px column the artboards use (100px margins at 1440). */
+.main {
+  --column: max(var(--gutter), calc((100% - 124rem) / 2));
+  --tajawal: var(--font-tajawal), var(--font-kufi), sans-serif;
+  --jakarta: var(--font-jakarta), "Segoe UI", Arial, sans-serif;
+  --line: #e5e7eb;
+  background: var(--bg-main);
+}
+
+.heroTitle,
+.title,
+.cardTitle,
+.cardLink,
+.button,
+.stepNumber,
+.stepTitle,
+.stepText,
+.faqQuestion,
+.closingTitle {
+  font-family: var(--tajawal);
+}
+
+.heroEyebrow,
+.heroLabels,
+.eyebrow,
+.cardNumber,
+.closingEyebrow {
+  font-family: var(--jakarta);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+/* ---- Pills: 18px Tajawal on 16 × 24, 44px corners ------------------------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2.3rem;
+  border: 0.1rem solid transparent;
+  border-radius: 4.4rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.button:hover {
+  transform: translateY(-0.2rem);
+}
+
+.button:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+.buttonLight {
+  border-color: var(--primary);
+  background: var(--bg-main);
+  color: var(--primary);
+}
+
+.buttonLight:hover {
+  background: var(--blue-light);
+  box-shadow: 0 1.2rem 2.4rem rgba(5, 13, 31, 0.2);
+}
+
+.buttonPrimary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.buttonPrimary:hover {
+  background: var(--blue-dark);
+  box-shadow: 0 1.2rem 2.4rem rgba(28, 68, 153, 0.24);
+}
+
+.buttonGhost {
+  border-color: var(--text-inverse);
+  color: var(--text-inverse);
+}
+
+.buttonGhost:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hero .button:focus-visible,
+.closing .button:focus-visible {
+  outline-color: var(--text-inverse);
+}
+
+/* ---- Hero (Figma 4431:12493): the photo on the far 960px, darkening into
+   the copy's side. ---------------------------------------------------------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: 60rem;
+  padding: 6.4rem var(--column);
+  overflow: hidden;
+  background: #0a1836;
+  color: var(--text-inverse);
+}
+
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+/* Physical sides on purpose: the English page mirrors the whole layer. */
+.heroPhoto {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 66.667%;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(25, 61, 138, 0.133) 0%,
+    rgba(21, 50, 113, 0.6) 32%,
+    rgba(10, 24, 54, 0.961) 62%,
+    #0a1836 100%
+  );
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  width: 69.2rem;
+  max-width: 100%;
+}
+
+.heroTitle {
+  font-size: 4.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.heroText {
+  font-size: 1.6rem;
+  line-height: 1.9;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+
+.heroLabels {
+  font-weight: 400;
+  color: #ced7ea;
+  white-space: pre-wrap;
+}
+
+/* ---- Sections ---------------------------------------------------------------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  padding: 8rem var(--column);
+}
+
+.tinted {
+  background: var(--bg-card);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.introCenter {
+  align-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  color: var(--primary);
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.lead {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.lead strong {
+  font-weight: 700;
+}
+
+/* ---- Cards (Figma 4365:11062) -------------------------------------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.cardNumber {
+  color: var(--primary);
+}
+
+.cardTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.cardText {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+}
+
+.cardLink:hover .arrow {
+  transform: translateX(-0.4rem);
+}
+
+.cardLink:focus-visible {
+  border-radius: 0.4rem;
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.4rem;
+}
+
+/* ---- Service rows (Figma 4431:12577) -------------------------------------------- */
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.detailCopy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1.6rem;
+  min-width: 0;
+}
+
+.detailMedia {
+  position: relative;
+  flex-shrink: 0;
+  width: 33rem;
+  height: var(--panel-h, 23.8rem);
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.detailMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, var(--shade, 0));
+}
+
+.detailBlank {
+  background: var(--blue-light);
+}
+
+.detailImage {
+  object-fit: cover;
+}
+
+/* ---- Process (Figma 3503:34000) ---------------------------------------------------- */
+.process {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 1.6rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  min-height: 25.5rem;
+  padding: 4.4rem 2rem 2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--primary);
+  color: var(--text-inverse);
+  line-height: 1.9;
+}
+
+.processTall .step {
+  min-height: 31rem;
+}
+
+.stepNumber {
+  font-size: 3.2rem;
+}
+
+.stepTitle {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.stepText {
+  font-size: 1.6rem;
+}
+
+/* ---- Questions -------------------------------------------------------------------- */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.faqItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 2.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.faqQuestion {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.faqAnswer {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+/* ---- Closing invitation (Figma 4431:12937) --------------------------------------------- */
+.closing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  padding: 8rem max(var(--gutter), calc((100% - 112rem) / 2));
+  background: #11295c;
+  color: var(--text-inverse);
+  text-align: center;
+}
+
+.closingCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.closingTitle {
+  font-size: 4.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.closingText {
+  font-size: 1.8rem;
+  line-height: 1.9;
+}
+
+.closingActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover,
+  .cardLink:hover .arrow {
+    transform: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroTitle,
+  .closingTitle {
+    font-size: 3.6rem;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .process {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .step,
+  .processTall .step {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 0;
+    padding-block: 8rem;
+  }
+
+  /* The photo fills the band and a steady shade keeps the copy legible. */
+  .heroPhoto {
+    width: 100%;
+  }
+
+  .heroMedia::after {
+    background: linear-gradient(180deg, rgba(10, 24, 54, 0.62), rgba(10, 24, 54, 0.94));
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detail {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 2.4rem;
+  }
+
+  .detailMedia {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 330 / 238;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-block: 5.6rem;
+  }
+
+  .heroTitle,
+  .closingTitle {
+    font-size: 3rem;
+  }
+
+  .section,
+  .closing {
+    padding-block: 5.6rem;
+  }
+
+  .section {
+    gap: 2.4rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .card,
+  .detail {
+    padding: 2.4rem;
+    border-radius: 1.6rem;
+  }
+
+  .faqItem {
+    padding: 2.4rem;
+    border-radius: 1.6rem;
+  }
+
+  .cardTitle {
+    font-size: 2.2rem;
+  }
+
+  .process {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .step {
+    padding-top: 2.4rem;
+  }
+
+  .closingText {
+    font-size: 1.6rem;
+  }
+
+  .button {
+    padding-inline: 2rem;
+    font-size: 1.6rem;
+    white-space: normal;
+    text-align: center;
+  }
+}

@@ -1,19 +1,34 @@
 "use client";
 
-import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { animate, motion, MotionConfig, useMotionValue, useTransform, type MotionValue } from "framer-motion";
 import { useReducedMotion } from "@/english/lib/useReducedMotion";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { OpeningMark } from "@/english/components/ui/OpeningMark";
 import styles from "@/english/components/ui/HomeOpening.module.css";
 
 type Version = "v1" | "v2";
+const ease = [0.22, 1, 0.36, 1] as const;
+const steps = ["Imagine", "Engineer", "Transform"];
+const letters = [..."TRANSFORMIX"];
+
+function OpeningStep({ progress, index, label }: { progress: MotionValue<number>; index: number; label: string }) {
+  const opacity = useTransform(progress, value => value >= index * 33 ? 1 : 0.35);
+  const scaleX = useTransform(progress, [index * 33, (index + 1) * 33], [0, 1]);
+  return (
+    <motion.span className={styles.step} style={{ opacity }}>
+      <span className={styles.stepNumber}>{String(index + 1).padStart(2, "0")}</span>
+      {label}
+      <motion.i style={{ scaleX }} />
+    </motion.span>
+  );
+}
 
 function Opening({ version, onComplete }: { version: Version; onComplete: () => void }) {
   const reduced = useReducedMotion();
   const progress = useMotionValue(0);
   const scale = useTransform(progress, [0, 100], [0, 1]);
-  const percent = useTransform(progress, value => `${Math.round(value)}%`);
+  const percent = useTransform(progress, value => String(Math.round(value)).padStart(2, "0"));
   const [leaving, setLeaving] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -21,11 +36,11 @@ function Opening({ version, onComplete }: { version: Version; onComplete: () => 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const controls = animate(progress, 100, {
-      duration: reduced ? 0.2 : 1.8,
-      ease: [0.45, 0, 0.2, 1],
+      duration: reduced ? 0.1 : 2.5,
+      ease: [0.35, 0, 0.2, 1],
       onComplete: () => setLeaving(true),
     });
-    const fallback = window.setTimeout(onComplete, 5000);
+    const fallback = window.setTimeout(onComplete, 6000);
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onComplete();
       if (event.key === "Tab") {
@@ -43,53 +58,80 @@ function Opening({ version, onComplete }: { version: Version; onComplete: () => 
   }, [onComplete, progress, reduced]);
 
   return (
-    <motion.div
-      ref={overlayRef}
-      className={`${styles.overlay} ${styles[version]}`}
-      data-home-opening={version}
-      role="status"
-      aria-label={"Welcome to Transformix"}
-      initial={false}
-      animate={leaving
-        ? reduced ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }
-        : { opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-      transition={{ duration: reduced ? 0.15 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-      onAnimationComplete={() => { if (leaving) onComplete(); }}
-    >
-      <div className={styles.orbit} aria-hidden="true" />
-      <div className={styles.top} aria-hidden="true">
-        <span dir="ltr">THE TRANSFORMIX</span>
-        <span>{"Integrated digital solutions"}</span>
-      </div>
-
-      <div className={styles.stage}>
-        <motion.div className={styles.logo}
-          initial={reduced ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.6 }}>
-          <Image src={version === "v1" ? "/images/logo-wide.png" : "/v2/brand/logo.png"}
-            alt="" width={240} height={80} sizes="220px" preload />
+    <MotionConfig reducedMotion="user">
+      <div
+        ref={overlayRef}
+        className={`${styles.overlay} ${styles[version]}`}
+        data-home-opening={version}
+        role="status"
+        aria-label={"Welcome to Transformix"}
+      >
+        <div className={styles.panels} aria-hidden="true">
+          {[0, 1, 2, 3].map(index => (
+            <motion.div
+              key={index}
+              className={styles.panel}
+              initial={false}
+              animate={{ y: leaving ? "-101%" : "0%" }}
+              transition={{ duration: reduced ? 0 : 0.8, delay: reduced ? 0 : index * 0.055, ease }}
+              onAnimationComplete={() => { if (leaving && index === 3) onComplete(); }}
+            />
+          ))}
+        </div>
+        <motion.div
+          className={styles.composition}
+          initial={false}
+          animate={{ opacity: leaving ? 0 : 1, y: leaving && !reduced ? -30 : 0 }}
+          transition={{ duration: reduced ? 0 : 0.3, ease }}
+        >
+          <div className={styles.top} aria-hidden="true">
+            <span className={styles.signature} dir="ltr"><span className={styles.cross}>+</span> THE TRANSFORMIX</span>
+            <span>{"Integrated digital solutions"}</span>
+          </div>
+          <div className={styles.stage} aria-hidden="true">
+            <OpeningMark reduced={reduced} />
+            <div className={styles.word} dir="ltr">
+              {letters.map((letter, index) => (
+                <span key={index} className={styles.letterClip}>
+                  <motion.span
+                    initial={reduced ? false : { y: "110%", rotate: 5 }}
+                    animate={{ y: "0%", rotate: 0 }}
+                    transition={{ duration: reduced ? 0 : 0.85, delay: reduced ? 0 : 0.65 + index * 0.04, ease }}
+                  >{letter}</motion.span>
+                </span>
+              ))}
+              <motion.sup initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: reduced ? 0 : 1.6 }}>®</motion.sup>
+            </div>
+            <motion.p
+              className={styles.tagline}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 1.3, ease }}
+            >{"From idea to real impact"}</motion.p>
+          </div>
+          <div className={styles.bottom} aria-hidden="true">
+            <div className={styles.progress} dir="ltr">
+              <div className={styles.counter}><motion.span>{percent}</motion.span><span className={styles.percent}>%</span></div>
+              <div className={styles.track}><motion.div style={{ scaleX: scale }} /></div>
+            </div>
+            <div className={styles.steps}>
+              {steps.map((label, index) => <OpeningStep key={label} progress={progress} index={index} label={label} />)}
+            </div>
+          </div>
         </motion.div>
-        <div className={styles.wordClip} aria-hidden="true">
-          <motion.p className={styles.word} dir="ltr"
-            initial={reduced ? false : { y: "110%" }} animate={{ y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.9, delay: reduced ? 0 : 0.15, ease: [0.22, 1, 0.36, 1] }}>
-            TRANSFORMIX<span>®</span>
-          </motion.p>
-        </div>
-        <motion.p className={styles.tagline} aria-hidden="true"
-          initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }}
-          transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.5 }}>
-          {" Your technology partner for business growth "}</motion.p>
-        <div className={styles.progress} aria-hidden="true">
-          <div className={styles.track}><motion.div style={{ scaleX: scale }} /></div>
-          <motion.span dir="ltr">{percent}</motion.span>
-        </div>
+        <motion.button
+          type="button"
+          className={styles.skip}
+          data-opening-skip
+          onClick={onComplete}
+          initial={false}
+          animate={{ opacity: leaving ? 0 : 1 }}
+          transition={{ duration: reduced ? 0 : 0.2 }}
+        >
+          {" Skip intro "}<span aria-hidden="true">↗</span>
+        </motion.button>
       </div>
-
-      <button type="button" className={styles.skip} data-opening-skip onClick={onComplete}>
-        {" Skip intro "}<span aria-hidden="true">←</span>
-      </button>
-    </motion.div>
+    </MotionConfig>
   );
 }
 
@@ -108,9 +150,9 @@ function OpeningFrame({ version, play, children }: { version: Version; play: boo
 
   useEffect(() => {
     if (!play) return;
-    const frame = requestAnimationFrame(() => setPhase("playing"));
+    const frame = requestAnimationFrame(() => setPhase(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "done" : "playing"));
     const replay = (event: PageTransitionEvent) => {
-      if (event.persisted) setPhase("playing");
+      if (event.persisted && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPhase("playing");
     };
     window.addEventListener("pageshow", replay);
     return () => {

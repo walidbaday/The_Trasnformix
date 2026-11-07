@@ -7,7 +7,7 @@ import { adjustEnglishSource } from "./english-adjustments.mjs";
 const messages = JSON.parse(fs.readFileSync("src/english/messages.json", "utf8"));
 const normalize = (text) => text.trim().replace(/\s+/g, " ");
 const arabic = /[\u0600-\u06ff]/;
-const route = /^\/(?:about|academy|contact|products|sectors|services|ventures|works)(?=[/?#]|$)|^\/v[234](?=[/?#]|$)/;
+const route = /^\/(?:about|academy|careers|community|contact|products|sectors|services|ventures|works)(?=[/?#]|$)|^\/v[234](?=[/?#]|$)/;
 const files = [];
 
 function walk(directory) {

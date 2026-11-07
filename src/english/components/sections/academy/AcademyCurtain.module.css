@@ -4,37 +4,23 @@
   align-items: stretch;
 }
 
-/* Paints above the hero (whose content sits at z-index 1) so it can slide
-   over it. */
 .band {
   position: relative;
-  z-index: 2;
   background: var(--bg-card);
 }
 
-/* Sits on the band's top edge, overlapping the hero's bottom exactly as the
-   artboard draws it. Hinged on its base, it flattens as --cover reaches 1. */
-.arc {
-  position: absolute;
-  left: 0;
-  bottom: 100%;
-  display: block;
-  width: 100%;
-  height: 14.4502rem;
-  max-width: none;
-  transform-origin: 50% 100%;
-  transform: scaleY(calc(1 - var(--cover, 0)));
-  will-change: transform;
+.content {
+  display: flow-root;
 }
 
-@media (max-width: 1024px) {
-  .arc {
-    height: 8rem;
-  }
+.band:focus-within .content {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
-@media (max-width: 640px) {
-  .arc {
-    height: 4.8rem;
+@media (prefers-reduced-motion: reduce), print {
+  .content {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

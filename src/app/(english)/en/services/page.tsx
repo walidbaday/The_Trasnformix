@@ -5,6 +5,7 @@ import { Navbar } from "@/english/components/sections/Navbar";
 import { PageHero } from "@/english/components/sections/PageHero";
 import { PillButton } from "@/english/components/ui/PillButton";
 import { Reveal } from "@/english/components/ui/Reveal";
+import flow from "@/english/components/ui/SectionFlow.module.css";
 import { ALL_SERVICES, SERVICES_INTRO } from "@/english/lib/serviceNavigation";
 import { SERVICES_OVERVIEW } from "@/english/lib/servicesOverview";
 import styles from "@/app/(english)/en/services/page.module.css";
@@ -18,7 +19,7 @@ export default function ServicesPage() {
   return (
     <>
       <Navbar variant="slim" />
-      <main className={styles.main}>
+      <main className={`${flow.flow} ${styles.main}`}>
         <PageHero
           title={SERVICES_INTRO.title}
           text={SERVICES_INTRO.lead}

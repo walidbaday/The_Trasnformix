@@ -37,6 +37,17 @@ export const getServiceWebsite = (key: ServiceKey) =>
 /** Every link about the manufacturing sector leaves for its own site. */
 export const MANUFACTURING_WEBSITE = "https://manufacturing.thetransformix.com/";
 
+/** TX AI Suite — the ready-to-customise AI agents. */
+export const AI_SUITE_WEBSITE = "https://ai.thetransformix.com/";
+
+/** The product platforms that run on sites of their own. */
+export const PRODUCT_WEBSITES = {
+  cooperatives: "https://cooperatives.thetransformix.com/",
+  logistics: "https://logistics.thetransformix.com/",
+  marketplaces: "https://marketplaces.thetransformix.com/",
+  xt: "https://xt.thetransformix.com/",
+} as const;
+
 export const SERVICES_INTRO = {
   title: "Solutions that start with your needs and work together.",
   lead: "Four services covering data, digital presence, communication, and operations. We help you choose the right path, with services that can work together according to your priorities and readiness.",

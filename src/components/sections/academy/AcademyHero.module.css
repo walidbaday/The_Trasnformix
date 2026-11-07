@@ -15,13 +15,6 @@
   max-width: 100%;
   margin-inline: auto;
   padding: 12.508rem 9.6rem 0 10rem;
-  /* --cover comes from <AcademyCurtain>: the content sinks, shrinks and fades
-     as the #fcfbfa band slides over it. */
-  transform-origin: 50% 0;
-  transform: translateY(calc(var(--cover, 0) * 20rem))
-    scale(calc(1 - 0.06 * var(--cover, 0)));
-  opacity: calc(1 - 0.9 * var(--cover, 0));
-  will-change: transform, opacity;
 }
 
 .copy {

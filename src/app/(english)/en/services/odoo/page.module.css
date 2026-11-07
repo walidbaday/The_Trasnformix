@@ -1,0 +1,197 @@
+/* Figma 4431:12992 — خدمات Odoo المتخصصة. The shared parts live in
+   components/services/ServiceKit.module.css; these are the page's own. */
+
+/* The expertise line under the hero (Figma 4431:13036). */
+.expertise {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  padding: 4rem var(--column);
+}
+
+/* The services section spaces its intro, call and rows 56px apart. */
+.services {
+  gap: 5.6rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+/* ---- Industry foundations (Figma 4431:13121) ---------------------------------- */
+.industries {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.industry {
+  display: flex;
+  align-items: center;
+  gap: 3.6rem;
+  padding: 1.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.industryCopy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2rem;
+  min-width: 0;
+  padding-block: 2rem;
+  padding-inline: 2.8rem 0.8rem;
+}
+
+.industryActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.6rem;
+  min-height: 6.8rem;
+}
+
+.industryMedia {
+  position: relative;
+  flex-shrink: 0;
+  width: 56rem;
+  height: 32rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.industryImage {
+  object-fit: cover;
+}
+
+/* ---- Editions (Figma 4431:13163) ----------------------------------------------- */
+.edition {
+  gap: 2rem;
+}
+
+.editionName {
+  font-family: var(--jakarta);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.55;
+  color: var(--primary);
+}
+
+/* ---- Knowledge themes and the readiness assessment (Figma 4431:13232) ---------- */
+.topics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.4rem;
+}
+
+.topic {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.4rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 1.6rem;
+  background: var(--bg-card);
+}
+
+.readiness {
+  display: flex;
+  align-items: center;
+  gap: 4.8rem;
+  padding: 4rem;
+  border-radius: 2.4rem;
+  background: var(--blue-light);
+}
+
+.readinessCopy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1.6rem;
+  min-width: 0;
+}
+
+.readinessActions {
+  display: flex;
+  flex: 0 1 50.5rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.6rem;
+}
+
+/* The Odoo closing sits on the darker blue. */
+.closing {
+  background: #0d1f45;
+}
+
+@media (max-width: 1024px) {
+  .industryMedia {
+    width: 44rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .industry {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+
+  .industryMedia {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 560 / 320;
+  }
+
+  .industryCopy {
+    padding: 1.6rem;
+  }
+
+  .topics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .readiness {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2.4rem;
+  }
+
+  .readinessActions {
+    flex-basis: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .expertise {
+    padding-block: 3.2rem;
+  }
+
+  .services {
+    gap: 3.2rem;
+  }
+
+  .industry {
+    border-radius: 1.6rem;
+  }
+
+  .industryMedia {
+    border-radius: 1.2rem;
+  }
+
+  .industryCopy {
+    padding: 1.2rem 0.8rem 1.6rem;
+  }
+
+  .readiness {
+    padding: 2.4rem;
+    border-radius: 1.6rem;
+  }
+}

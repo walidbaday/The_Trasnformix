@@ -1,0 +1,439 @@
+/* Figma 4365:10797 — هندسة البرمجيات. It shares the section heads, card
+   type and closing blue with the other service pages
+   (components/services/ServiceKit.module.css); its hero, capability rows,
+   journey, technologies and questions are its own. */
+
+/* ---- Pills: Noto Kufi Bold 16 ------------------------------------------------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 4rem;
+  border: 0;
+  border-radius: 4.4rem;
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.9;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.pill:hover {
+  transform: translateY(-0.2rem);
+}
+
+.pill:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+.pillLight {
+  background: var(--bg-main);
+  color: var(--primary);
+}
+
+.pillLight:hover {
+  background: var(--blue-light);
+  box-shadow: 0 1.2rem 2.4rem rgba(5, 13, 31, 0.28);
+}
+
+.pillLight:focus-visible {
+  outline-color: var(--text-inverse);
+}
+
+.pillPrimary {
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.pillPrimary:hover {
+  background: var(--blue-dark);
+  box-shadow: 0 1.2rem 2.4rem rgba(28, 68, 153, 0.24);
+}
+
+/* ---- Hero (Figma 4381:8051): a full-bleed photo under the blue shade the
+   community banners use. ------------------------------------------------------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 53.4rem;
+  padding-block: 8rem;
+  padding-inline: max(7.9rem, calc(50% - 64.1rem)) var(--gutter);
+  overflow: hidden;
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: left center;
+}
+
+.heroMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(25, 61, 138, 0.28) 9.6165%,
+    rgba(28, 68, 153, 0.17) 25.481%,
+    rgba(21, 50, 113, 0.73) 38.943%,
+    rgba(29, 53, 105, 0.9) 57.211%,
+    rgb(9, 22, 50) 98.556%
+  );
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 68.1rem;
+  max-width: 100%;
+}
+
+.heroTitle {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.heroText {
+  margin-top: 1.2rem;
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
+
+.heroText + * {
+  margin-top: 3.2rem;
+}
+
+.heroButton {
+  padding: 1.4rem 4.8rem;
+}
+
+/* ---- Capabilities (Figma 4371:38117) -------------------------------------------- */
+.capabilities {
+  display: flex;
+  flex-direction: column;
+  gap: 3.8rem;
+  padding: 11.6rem var(--column) 8rem;
+}
+
+.intro,
+.introSpaced {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.1rem;
+  text-align: center;
+}
+
+.introSpaced {
+  gap: 3.2rem;
+}
+
+.capabilityList {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.capability {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  min-height: 37.1rem;
+  padding: 1rem;
+  border: 0.1rem solid #e6f2fb;
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+  box-shadow:
+    0 0 0.2rem rgba(0, 0, 0, 0.12),
+    0 0.2rem 0.4rem rgba(0, 0, 0, 0.14);
+}
+
+.capabilityCopy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+  min-width: 0;
+  padding-block: 2.4rem;
+  padding-inline: 3.5rem 1.4rem;
+}
+
+.capabilityCopy > p {
+  max-width: 46.7rem;
+}
+
+.capabilityCopy > p + * {
+  margin-top: 1.6rem;
+}
+
+.capabilityMedia {
+  position: relative;
+  flex-shrink: 0;
+  width: 52%;
+  height: 35rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.capabilityImage {
+  object-fit: cover;
+}
+
+/* ---- Ways of working (Figma 4365:11525) ----------------------------------------- */
+.models {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.6rem;
+}
+
+.model {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  min-height: 18rem;
+  padding: 2.4rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.modelNumber {
+  font-family: var(--tajawal);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+  white-space: pre;
+}
+
+.modelTitle {
+  font-family: var(--tajawal);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+/* ---- Technologies (Figma 4409:3273) ---------------------------------------------- */
+.techLead {
+  max-width: 103.1rem;
+}
+
+.technologies {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.4rem;
+}
+
+.technology {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.4rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 1.6rem;
+  background: var(--bg-card);
+}
+
+.techIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.4rem;
+  height: 6.4rem;
+}
+
+.techIcon img {
+  max-width: none;
+}
+
+.techTitle {
+  font-family: var(--tajawal);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+/* ---- Closing (Figma 4365:10804) ---------------------------------------------------- */
+.closing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  padding: 8rem var(--column);
+  background: #11295c;
+  color: var(--text-inverse);
+  text-align: center;
+}
+
+.closingText {
+  max-width: 97.6rem;
+  font-size: 1.8rem;
+  line-height: 1.9;
+}
+
+/* ---- Questions (Figma 4409:3329) ---------------------------------------------------- */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  padding: 12rem var(--column) 10.6rem;
+  background: var(--bg-card);
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.faqItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 2.4rem 3.2rem;
+  border-bottom: 0.1rem solid #d3d3d3;
+  border-radius: 3.2rem;
+  background: var(--bg-main);
+}
+
+.faqQuestion {
+  font-family: var(--tajawal);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    min-height: 0;
+    padding-inline: var(--gutter);
+  }
+
+  .heroMedia::after {
+    background: linear-gradient(180deg, rgba(9, 22, 50, 0.55), rgba(9, 22, 50, 0.92));
+  }
+
+  .heroTitle {
+    font-size: 3.6rem;
+  }
+
+  .models,
+  .technologies {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .capability {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 0.8rem;
+    min-height: 0;
+  }
+
+  .capabilityMedia {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 643 / 351;
+  }
+
+  .capabilityCopy {
+    padding: 1.6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-block: 5.6rem;
+  }
+
+  .heroTitle {
+    font-size: 2.8rem;
+  }
+
+  .heroText {
+    font-size: 1.6rem;
+  }
+
+  .heroText + * {
+    margin-top: 2.4rem;
+  }
+
+  .capabilities {
+    gap: 2.4rem;
+    padding-block: 5.6rem;
+  }
+
+  .capabilityList {
+    gap: 2.4rem;
+  }
+
+  .capability {
+    border-radius: 1.6rem;
+  }
+
+  .capabilityMedia {
+    border-radius: 1.2rem;
+  }
+
+  .capabilityCopy {
+    padding: 1.2rem 0.8rem 1.6rem;
+  }
+
+  .intro,
+  .introSpaced {
+    gap: 1.2rem;
+  }
+
+  .models,
+  .technologies {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .closing,
+  .faq {
+    padding-block: 5.6rem;
+  }
+
+  .closingText {
+    font-size: 1.6rem;
+  }
+
+  .faqItem {
+    padding: 2rem 2.4rem;
+    border-radius: 2.4rem;
+  }
+
+  .pill {
+    padding-inline: 3.2rem;
+  }
+}
+
+/* The copy sits on the left in English, so the photo and its shade turn with it. */
+.heroMedia { transform: scaleX(-1); }

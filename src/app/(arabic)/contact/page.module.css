@@ -1,0 +1,471 @@
+/* Figma 4431:12108 — التواصل والشراكات. Tajawal sets the headings, cards'
+   calls and buttons; the body copy keeps the site's Noto Kufi; the Latin
+   labels and card numbers are Plus Jakarta Sans. Content sits on the 1240px
+   column the artboard uses (100px margins at 1440). */
+.main {
+  --column: max(var(--gutter), calc((100% - 124rem) / 2));
+  --tajawal: var(--font-tajawal), var(--font-kufi), sans-serif;
+  --jakarta: var(--font-jakarta), "Segoe UI", Arial, sans-serif;
+  --line: #e5e7eb;
+  background: var(--bg-main);
+}
+
+.heroTitle,
+.title,
+.guidanceTitle,
+.cardTitle,
+.cardLink,
+.button,
+.closingTitle {
+  font-family: var(--tajawal);
+}
+
+.cardNumber,
+.eyebrow,
+.closingEyebrow {
+  font-family: var(--jakarta);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+/* ---- Buttons: the services pill, 18px Tajawal on 16 × 24 ------------------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2.3rem;
+  border: 0.1rem solid transparent;
+  border-radius: 4.4rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.button:hover {
+  transform: translateY(-0.2rem);
+}
+
+.button:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+.buttonLight {
+  border-color: var(--primary);
+  background: var(--bg-main);
+  color: var(--primary);
+}
+
+.buttonLight:hover {
+  background: var(--blue-light);
+  box-shadow: 0 1.2rem 2.4rem rgba(5, 13, 31, 0.24);
+}
+
+.buttonGhost {
+  border-color: var(--text-inverse);
+  color: var(--text-inverse);
+}
+
+.buttonGhost:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.buttonPrimary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.buttonPrimary:hover {
+  background: var(--blue-dark);
+  box-shadow: 0 1.2rem 2.4rem rgba(28, 68, 153, 0.24);
+}
+
+.hero .button:focus-visible,
+.closing .button:focus-visible {
+  outline-color: var(--text-inverse);
+}
+
+/* ---- Hero (Figma 4431:12137): the photo on the far side, darkening into
+   the copy's side. --------------------------------------------------------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: 60rem;
+  padding: 6.4rem var(--column);
+  overflow: hidden;
+  background: #0a1836;
+  color: var(--text-inverse);
+}
+
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+/* Physical sides on purpose: the English page mirrors the whole layer. */
+.heroPhoto {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 66.667%;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(25, 61, 138, 0.133) 0%,
+    rgba(21, 50, 113, 0.6) 32%,
+    rgba(10, 24, 54, 0.961) 62%,
+    #0a1836 100%
+  );
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  width: 62.9rem;
+  max-width: 100%;
+}
+
+.heroTitle {
+  font-size: 4.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.heroText {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-inverse);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.6rem;
+  min-height: 7.1rem;
+}
+
+/* ---- Sections ---------------------------------------------------------------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  padding: 8rem var(--column);
+}
+
+.band {
+  background: var(--bg-card);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.lead {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.eyebrow {
+  color: var(--primary);
+}
+
+/* ---- Cards (Figma 4365:11062): the six ways in, and the community routes --- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  min-height: 34rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+/* The community routes: white on the cream band, their copy centred down
+   the card. */
+.cardPlain {
+  justify-content: center;
+  background: var(--bg-main);
+}
+
+.cardNumber {
+  color: var(--primary);
+}
+
+.cardTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.cardText {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+}
+
+.cardLink:hover .arrow {
+  transform: translateX(-0.4rem);
+}
+
+.cardLink:focus-visible {
+  border-radius: 0.4rem;
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.4rem;
+}
+
+/* ---- Request routing (Figma 4431:12249) -------------------------------------- */
+.routing {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.guidance {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.guidanceTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* ---- Where we work (Figma 4431:12333) ---------------------------------------- */
+.presence {
+  gap: 4rem;
+}
+
+.regional {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 3.2rem;
+  border: 0.1rem solid #e5e5e5;
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.regionalActions {
+  display: flex;
+}
+
+.offices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.4rem;
+}
+
+.office {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+/* ---- Closing invitation (Figma 4431:12406) ------------------------------------ */
+.closing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  padding: 8rem max(var(--gutter), calc((100% - 112rem) / 2));
+  background: #11295c;
+  color: var(--text-inverse);
+  text-align: center;
+}
+
+.closingCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.closingTitle {
+  font-size: 4.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.closingText {
+  font-size: 1.8rem;
+  line-height: 1.9;
+}
+
+.closingActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover,
+  .cardLink:hover .arrow {
+    transform: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroTitle,
+  .closingTitle {
+    font-size: 3.6rem;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 0;
+    padding-block: 8rem;
+  }
+
+  /* The photo fills the band and a steady shade keeps the copy legible. */
+  .heroPhoto {
+    width: 100%;
+  }
+
+  .heroMedia::after {
+    background: linear-gradient(180deg, rgba(10, 24, 54, 0.62), rgba(10, 24, 54, 0.94));
+  }
+
+  .cards,
+  .offices {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .card {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-block: 5.6rem;
+  }
+
+  .heroTitle,
+  .closingTitle {
+    font-size: 3rem;
+  }
+
+  .heroActions {
+    min-height: 0;
+  }
+
+  .section,
+  .closing {
+    padding-block: 5.6rem;
+  }
+
+  .section {
+    gap: 2.4rem;
+  }
+
+  .presence,
+  .routing {
+    gap: 3.2rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .card,
+  .regional {
+    padding: 2.4rem;
+    border-radius: 1.6rem;
+  }
+
+  .office {
+    padding: 2.4rem;
+    border-radius: 1.6rem;
+  }
+
+  .cardTitle,
+  .guidanceTitle {
+    font-size: 2.2rem;
+  }
+
+  .closingText {
+    font-size: 1.6rem;
+  }
+
+  .button {
+    padding-inline: 2rem;
+    font-size: 1.6rem;
+  }
+}

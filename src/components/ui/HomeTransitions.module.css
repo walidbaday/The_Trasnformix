@@ -1,0 +1,59 @@
+.flow {
+  --section-gap: 100px;
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  background: var(--bg-main);
+}
+
+.track {
+  position: relative;
+  display: flow-root;
+  isolation: isolate;
+  --surface-color: #fff;
+}
+
+.track + .track {
+  margin-block-start: var(--section-gap);
+}
+
+.paper { --surface-color: #fff; }
+.ice { --surface-color: #f1f5f9; }
+.brand { --surface-color: #11295c; }
+
+.surface {
+  position: relative;
+  z-index: 1;
+  display: flow-root;
+  background: var(--surface-color);
+}
+
+.content { position: relative; display: flow-root; }
+.content > :global(section) + :global(section) {
+  margin-block-start: var(--section-gap);
+}
+.ice .content > :global(section) { background: transparent; }
+.track:focus-within .surface {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.brand .content {
+  --primary: #6bd7ed;
+  --text-primary: #fff;
+  --text-secondary: #dce8f8;
+  --blue-light-active: #ffffff35;
+  color: #fff;
+}
+
+/* Keep every section fully visible for reduced motion and paper output. */
+@media (prefers-reduced-motion: reduce), print {
+  .flow .surface { opacity: 1 !important; transform: none !important; }
+}
+
+@media print {
+  .flow .brand { --surface-color: #fff; }
+  .flow .brand .content { --primary: #1c4499; --text-secondary: #57585b; --blue-light-active: #b9c5df; color: #11295c; }
+  .flow .brand :global(h2), .flow .brand :global(h3), .flow .brand :global(h4) { color: #11295c !important; }
+  .flow .brand :global(h2 span) { color: #1c4499 !important; }
+}

@@ -1,0 +1,3 @@
+# Keep LF line endings everywhere, overriding Git for Windows' core.autocrlf.
+# The repo is stored as LF and deployed on Linux, and npm and Next write LF.
+* text=auto eol=lf
